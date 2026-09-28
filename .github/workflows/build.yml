@@ -24,8 +24,8 @@ jobs:
         env:
           GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
         with:
-          tagName: v1.0.0
-          releaseName: "The Wedding Clouds v1.0.0"
+          tagName: v1.0.1
+          releaseName: "Production Management TWC v1.0.1"
           releaseBody: "Automated desktop build."
           releaseDraft: false
           prerelease: false

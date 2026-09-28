@@ -1,0 +1,20 @@
+<svg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 1024 1024' width='1024' height='1024'>
+  <defs>
+    <linearGradient id='bgGrad' x1='0%' y1='0%' x2='100%' y2='100%'>
+      <stop offset='0%' stop-color='#1b1b22'/>
+      <stop offset='100%' stop-color='#0c0c0e'/>
+    </linearGradient>
+    <linearGradient id='orangeGrad' x1='0%' y1='0%' x2='100%' y2='100%'>
+      <stop offset='0%' stop-color='#ff8266'/>
+      <stop offset='100%' stop-color='#e55a3c'/>
+    </linearGradient>
+    <filter id='glow' x='-20%' y='-20%' width='140%' height='140%'>
+      <feDropShadow dx='0' dy='18' stdDeviation='24' flood-color='#e55a3c' flood-opacity='0.4'/>
+    </filter>
+  </defs>
+  <rect width='1024' height='1024' rx='225' fill='url(#bgGrad)'/>
+  <rect x='16' y='16' width='992' height='992' rx='210' fill='none' stroke='#ff6b4a' stroke-opacity='0.25' stroke-width='8'/>
+  <g transform='translate(512, 512) scale(0.9) translate(-512, -512)' filter='url(#glow)'>
+    <path fill='url(#orangeGrad)' d='M752 416c-11.2-123.6-115.4-220-240-220-101.4 0-189.6 63.8-224.8 155.8C202.4 366.2 128 438.4 128 528c0 97.2 78.8 176 176 176h440c88.4 0 160-71.6 160-160 0-82.6-62.8-150.4-144-159.2z'/>
+  </g>
+</svg>
