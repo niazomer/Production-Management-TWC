@@ -24,8 +24,8 @@ jobs:
         env:
           GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
         with:
-          tagName: v1.0.3
-          releaseName: "Production Management TWC v1.0.3"
+          tagName: v1.0.4
+          releaseName: "Production Management TWC v1.0.4"
           releaseBody: "Automated desktop build."
           releaseDraft: false
           prerelease: false
