@@ -3,18 +3,21 @@
 <head>
   <meta charset="UTF-8">
   <meta name="viewport" content="width=device-width, initial-scale=1.0">
-  <title>The Wedding Clouds - Delivery Control Room</title>
+  <title>Production Management TWC</title>
   
-  <!-- Tailwind CSS -->
+  <!-- Tailwind CSS Integration -->
   <script src="https://cdn.tailwindcss.com"></script>
-  <!-- FontAwesome -->
+  
+  <!-- FontAwesome Iconography -->
   <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
-  <!-- Chart.js -->
+  
+  <!-- Chart.js Engine -->
   <script src="https://cdn.jsdelivr.net/npm/chart.js"></script>
-  <!-- Supabase Realtime Database SDK -->
+  
+  <!-- Supabase Cloud Engine -->
   <script src="https://cdn.jsdelivr.net/npm/@supabase/supabase-js@2"></script>
   
-  <!-- Typography -->
+  <!-- Typography Integration -->
   <link href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600;700;800&display=swap" rel="stylesheet">
 
   <script>
@@ -38,11 +41,19 @@
     ::-webkit-scrollbar { width: 6px; height: 6px; background: transparent; }
     ::-webkit-scrollbar-thumb { background: #3f3f46; border-radius: 10px; }
     .dark ::-webkit-scrollbar-thumb { background: #272732; }
-    .timeline-line::before { content: ''; position: absolute; left: 11px; top: 0; bottom: 0; width: 2px; background: #ffe6df; z-index: 0; }
+    
+    .timeline-line::before {
+      content: ''; position: absolute; left: 11px; top: 0; bottom: 0; width: 2px; background: #ffe6df; z-index: 0;
+    }
     .dark .timeline-line::before { background: #272732; }
+    
     .nav-item.active { background-color: #111; color: white; border-radius: 9999px; }
     .dark .nav-item.active { background-color: #fff; color: #000; }
+    
     .admin-tab.active { border-bottom: 2px solid #ff6b4a; color: #ff6b4a; }
+    
+    @keyframes slideUp { from { transform: translateY(100%); opacity: 0; } to { transform: translateY(0); opacity: 1; } }
+    .toast-animate { animation: slideUp 0.3s ease-out forwards; }
   </style>
 </head>
 <body class="bg-gray-50 dark:bg-dark-bg text-gray-900 dark:text-gray-100 min-h-screen relative pb-28 selection:bg-brand-500 selection:text-white">
@@ -50,25 +61,39 @@
   <!-- ================= AUTHENTICATION VIEW ================= -->
   <div id="login-view" class="fixed inset-0 z-50 bg-gray-50 dark:bg-dark-bg flex flex-col items-center justify-center p-6 transition-opacity duration-500">
     <div class="w-full max-w-sm bg-white dark:bg-dark-card rounded-3xl p-8 shadow-soft text-center border border-gray-100 dark:border-dark-border">
-      <div class="w-16 h-16 bg-brand-500 text-white rounded-2xl flex items-center justify-center text-3xl mx-auto mb-6 shadow-lg shadow-brand-500/30">
-        <i class="fa-solid fa-photo-film"></i>
+      <div class="w-16 h-16 bg-gradient-to-tr from-[#e55a3c] to-[#ff6b4a] text-white rounded-2xl flex items-center justify-center text-3xl mx-auto mb-6 shadow-lg shadow-brand-500/30 border border-brand-500/30">
+        <i class="fa-solid fa-cloud"></i>
       </div>
-      <h1 class="text-2xl font-bold mb-2">The Wedding Clouds</h1>
-      <p class="text-gray-500 dark:text-gray-400 text-sm mb-8">Studio Delivery & Payout System</p>
+      <h1 class="text-2xl font-black tracking-tight mb-2">Production Management</h1>
+      <p class="text-brand-500 font-bold text-xs uppercase tracking-widest mb-6">TWC Studio Delivery & Payroll</p>
       
       <form onsubmit="handleLogin(event)" class="space-y-4">
         <div class="relative">
           <i class="fa-regular fa-user absolute left-4 top-1/2 -translate-y-1/2 text-gray-400"></i>
-          <select id="login-name" required class="w-full bg-gray-50 dark:bg-dark-surface border border-gray-200 dark:border-dark-border rounded-xl py-3 pl-10 pr-4 focus:ring-2 focus:ring-brand-500 font-medium outline-none appearance-none cursor-pointer">
-            <option value="" disabled selected>Connecting to server...</option>
+          <select id="login-name" required class="w-full bg-gray-50 dark:bg-[#1b1b22] text-gray-900 dark:text-white border border-gray-200 dark:border-[#272732] rounded-xl py-3 pl-10 pr-10 focus:ring-2 focus:ring-[#ff6b4a] font-medium outline-none appearance-none cursor-pointer">
+            <option value="" disabled selected>Select user profile...</option>
+            <option value="Manager">Control Room Manager (Admin)</option>
+            <option value="Hashim">Hashim</option>
+            <option value="Haseeb">Haseeb</option>
+            <option value="Ashik">Ashik</option>
+            <option value="Adhil">Adhil</option>
+            <option value="Aslam">Aslam</option>
           </select>
+          <i class="fa-solid fa-chevron-down absolute right-4 top-1/2 -translate-y-1/2 text-gray-400 pointer-events-none text-xs"></i>
         </div>
         <div class="relative mt-4">
           <i class="fa-solid fa-lock absolute left-4 top-1/2 -translate-y-1/2 text-gray-400"></i>
           <input type="password" id="login-password" placeholder="Password (default is blank)" class="w-full bg-gray-50 dark:bg-dark-surface border border-gray-200 dark:border-dark-border rounded-xl py-3 pl-10 pr-4 focus:ring-2 focus:ring-brand-500 font-medium outline-none">
         </div>
-        <button type="submit" class="w-full bg-brand-500 hover:bg-brand-600 text-white font-bold rounded-xl py-3 mt-4 transition shadow-lg shadow-brand-500/20">Access Workspace</button>
+        <button type="submit" style="background-color: #ff6b4a !important; color: #ffffff !important;" class="w-full font-bold rounded-xl py-3.5 mt-4 transition shadow-lg tracking-wide hover:opacity-90 cursor-pointer text-base">Access Workspace</button>
       </form>
+    </div>
+  </div>
+
+  <!-- ================= GLOBAL TOAST NOTIFICATION ================= -->
+  <div id="global-toast" class="fixed top-8 left-1/2 -translate-x-1/2 z-[70] hidden toast-animate">
+    <div class="bg-gray-900 text-white dark:bg-white dark:text-black px-6 py-3 rounded-full shadow-2xl font-bold text-sm flex items-center gap-3">
+        <i class="fa-solid fa-circle-check text-green-400 dark:text-green-600"></i> <span id="toast-msg">Success</span>
     </div>
   </div>
 
@@ -91,7 +116,9 @@
       <h3 class="text-xl font-bold mb-1">Daily Work Briefing</h3>
       <p class="text-sm text-gray-500 dark:text-gray-400 mb-6" id="briefing-subtitle">Action required on the following tasks.</p>
       
-      <div id="briefing-list" class="space-y-3 mb-6 max-h-64 overflow-y-auto text-left pr-2"></div>
+      <div id="briefing-list" class="space-y-3 mb-6 max-h-64 overflow-y-auto text-left pr-2">
+      </div>
+
       <button onclick="closeModal('modal-briefing')" class="w-full bg-gray-900 text-white dark:bg-white dark:text-black font-bold rounded-xl py-3 transition shadow-lg">Acknowledge & Continue</button>
     </div>
   </div>
@@ -99,14 +126,15 @@
   <!-- ================= MAIN APPLICATION WRAPPER ================= -->
   <div id="main-app" class="hidden w-full max-w-5xl mx-auto relative min-h-screen flex flex-col">
     
+    <!-- Application Header -->
     <header class="flex items-center justify-between p-6 pt-8">
       <div class="flex items-center gap-3">
-        <div class="w-10 h-10 bg-brand-500 text-white rounded-xl flex items-center justify-center text-lg shadow-lg">
+        <div class="w-10 h-10 bg-gradient-to-tr from-[#e55a3c] to-[#ff6b4a] text-white rounded-xl flex items-center justify-center text-lg shadow-lg border border-brand-500/20">
           <i class="fa-solid fa-cloud"></i>
         </div>
         <div>
-          <h1 class="font-bold text-lg leading-tight tracking-tight">TWC Control Room</h1>
-          <p class="text-[10px] text-gray-400 font-bold uppercase tracking-widest" id="header-role">STUDIO SYSTEM</p>
+          <h1 class="font-black text-lg leading-tight tracking-tight">Production Management TWC</h1>
+          <p class="text-[10px] text-brand-500 font-bold uppercase tracking-widest" id="header-role">STUDIO SYSTEM</p>
         </div>
       </div>
 
@@ -124,7 +152,7 @@
       <main id="view-home" class="space-y-6 hidden animate-fade-in max-w-3xl mx-auto">
         <div>
           <h2 class="text-3xl font-bold tracking-tight">Hey <span id="greet-name" class="text-brand-500"></span>, 👋</h2>
-          <p class="text-gray-500 dark:text-gray-400 text-sm mt-1">Here is your project and financial update.</p>
+          <p class="text-gray-500 dark:text-gray-400 text-sm mt-1">Here's your project and financial update.</p>
         </div>
 
         <div class="bg-white dark:bg-dark-card rounded-3xl p-6 shadow-soft border border-gray-100 dark:border-dark-border mb-4 flex flex-col sm:flex-row justify-between items-center sm:items-start gap-6">
@@ -152,6 +180,11 @@
             </div>
         </div>
 
+        <div class="bg-white dark:bg-dark-card rounded-3xl p-6 shadow-soft border border-gray-100 dark:border-dark-border">
+            <h3 class="font-bold text-sm mb-4">Performance: Current vs Previous Month</h3>
+            <div class="h-64 relative w-full"><canvas id="editor-perf-chart"></canvas></div>
+        </div>
+
         <div class="grid grid-cols-1 md:grid-cols-2 gap-6">
             <div class="bg-white dark:bg-dark-card rounded-3xl p-6 shadow-soft border border-gray-100 dark:border-dark-border">
                 <div class="flex justify-between items-center mb-4">
@@ -170,24 +203,22 @@
         </div>
       </main>
 
-      <!-- ================= VIEW: ADMINISTRATOR MATRIX ================= -->
+      <!-- ================= VIEW: ADMIN MATRIX ================= -->
       <main id="view-admin" class="space-y-6 hidden animate-fade-in w-full">
         <div>
           <h2 class="text-3xl font-bold tracking-tight">Administrative Matrix</h2>
-          <p class="text-gray-500 dark:text-gray-400 text-sm mt-1">Global studio metrics, capacity planning, and financial management.</p>
+          <p class="text-gray-500 dark:text-gray-400 text-sm mt-1">Global studio metrics, workflow health, and client updates.</p>
         </div>
 
         <div class="flex overflow-x-auto no-scrollbar border-b border-gray-200 dark:border-dark-border gap-6 pb-1">
           <button onclick="switchAdminTab('overview')" id="tab-overview" class="admin-tab active pb-3 text-sm font-bold whitespace-nowrap transition">Overview</button>
           <button onclick="switchAdminTab('editor-analysis')" id="tab-editor-analysis" class="admin-tab pb-3 text-sm font-bold text-gray-500 whitespace-nowrap transition hover:text-brand-500">Editor Analysis</button>
-          <button onclick="switchAdminTab('payouts')" id="tab-payouts" class="admin-tab pb-3 text-sm font-bold text-gray-500 whitespace-nowrap transition hover:text-brand-500">Total Payouts</button>
-          <button onclick="switchAdminTab('monthly-data')" id="tab-monthly-data" class="admin-tab pb-3 text-sm font-bold text-gray-500 whitespace-nowrap transition hover:text-brand-500">Monthly Data</button>
           <button onclick="switchAdminTab('clients')" id="tab-clients" class="admin-tab pb-3 text-sm font-bold text-gray-500 whitespace-nowrap transition hover:text-brand-500">Client Status</button>
-          <button onclick="switchAdminTab('settings')" id="tab-settings" class="admin-tab pb-3 text-sm font-bold text-gray-500 whitespace-nowrap transition hover:text-brand-500">Manage Studio</button>
         </div>
 
         <div id="admin-sub-overview" class="space-y-6 block animate-fade-in">
           <div class="grid grid-cols-2 lg:grid-cols-4 gap-4" id="admin-kpi-container"></div>
+          
           <div class="bg-white dark:bg-dark-card rounded-3xl p-6 shadow-soft border border-gray-100 dark:border-dark-border">
             <h3 class="font-bold text-sm mb-4">Pipeline Stage Workload</h3>
             <div class="h-72 relative w-full"><canvas id="admin-pipeline-chart"></canvas></div>
@@ -202,19 +233,46 @@
                 <i class="fa-solid fa-chevron-down absolute right-4 top-1/2 -translate-y-1/2 text-gray-400"></i>
             </div>
           </div>
+
           <div class="grid grid-cols-2 md:grid-cols-4 gap-4" id="editor-specific-kpis"></div>
+
           <div class="bg-white dark:bg-dark-card rounded-3xl p-6 shadow-soft border border-gray-100 dark:border-dark-border">
             <h3 class="font-bold text-sm mb-4">Individual KPI Distribution</h3>
             <div class="h-72 relative w-full"><canvas id="editor-specific-chart"></canvas></div>
           </div>
         </div>
 
-        <div id="admin-sub-payouts" class="space-y-6 hidden animate-fade-in">
+        <div id="admin-sub-clients" class="space-y-6 hidden animate-fade-in">
+          <div class="bg-white dark:bg-dark-card rounded-3xl p-6 shadow-soft border border-gray-100 dark:border-dark-border">
+            <label class="block text-xs font-bold text-gray-500 uppercase tracking-wider mb-2">Select Client Project</label>
+            <div class="relative">
+                <select id="client-status-select" onchange="renderClientStatus()" class="w-full bg-gray-50 dark:bg-dark-surface border border-gray-200 dark:border-dark-border rounded-xl p-3 outline-none focus:ring-2 focus:ring-brand-500 font-bold text-lg appearance-none cursor-pointer"></select>
+                <i class="fa-solid fa-chevron-down absolute right-4 top-1/2 -translate-y-1/2 text-gray-400"></i>
+            </div>
+          </div>
+          <div id="client-status-container" class="space-y-4"></div>
+        </div>
+      </main>
+
+      <!-- ================= VIEW: ADMIN FINANCE ================= -->
+      <main id="view-finance" class="space-y-6 hidden animate-fade-in w-full">
+        <div>
+          <h2 class="text-3xl font-bold tracking-tight">Studio Finance & Structure</h2>
+          <p class="text-gray-500 dark:text-gray-400 text-sm mt-1">Manage payouts, analyze monthly data, and configure studio settings.</p>
+        </div>
+
+        <div class="flex overflow-x-auto no-scrollbar border-b border-gray-200 dark:border-dark-border gap-6 pb-1">
+          <button onclick="switchFinanceTab('payouts')" id="finance-tab-payouts" class="finance-tab active pb-3 text-sm font-bold whitespace-nowrap transition border-b-2 border-brand-500 text-brand-500">Total Payouts</button>
+          <button onclick="switchFinanceTab('monthly')" id="finance-tab-monthly" class="finance-tab pb-3 text-sm font-bold text-gray-500 whitespace-nowrap transition hover:text-brand-500">Monthly Data</button>
+          <button onclick="switchFinanceTab('settings')" id="finance-tab-settings" class="finance-tab pb-3 text-sm font-bold text-gray-500 whitespace-nowrap transition hover:text-brand-500">Manage Studio</button>
+        </div>
+
+        <div id="finance-sub-payouts" class="space-y-6 block animate-fade-in">
             <div class="bg-white dark:bg-dark-card rounded-3xl p-6 shadow-soft border border-gray-100 dark:border-dark-border">
                 <div class="flex flex-col sm:flex-row justify-between items-start sm:items-center gap-4 mb-6 border-b border-gray-100 dark:border-dark-border pb-4">
                     <div>
                         <h3 class="font-bold text-lg">Studio Total Payout Ledger</h3>
-                        <p class="text-xs text-gray-500">Aggregated cleared earnings based on completed deliverables.</p>
+                        <p class="text-xs text-gray-500">Aggregated pending and cleared earnings.</p>
                     </div>
                     <div class="w-full sm:w-auto relative">
                         <select id="payout-time-filter" onchange="renderTotalPayouts()" class="w-full sm:w-48 bg-gray-50 dark:bg-dark-surface border border-gray-200 dark:border-dark-border rounded-xl p-2.5 outline-none focus:ring-2 focus:ring-brand-500 text-sm font-bold appearance-none cursor-pointer">
@@ -226,9 +284,37 @@
                 </div>
                 <div id="total-payouts-list" class="space-y-3"></div>
             </div>
+
+            <div class="bg-white dark:bg-dark-card rounded-3xl p-6 shadow-soft border border-gray-100 dark:border-dark-border">
+                <h3 class="font-bold text-lg mb-1">Transaction History</h3>
+                <p class="text-xs text-gray-500 mb-4">Chronological ledger of all studio payouts sent to editors.</p>
+                <div class="overflow-x-auto">
+                    <table class="w-full text-left text-sm whitespace-nowrap">
+                        <thead class="text-[10px] text-gray-500 uppercase tracking-widest border-b border-gray-200 dark:border-dark-border">
+                            <tr>
+                                <th class="pb-3 font-bold">Date & Time</th>
+                                <th class="pb-3 font-bold">Editor</th>
+                                <th class="pb-3 font-bold text-right">Amount Paid</th>
+                            </tr>
+                        </thead>
+                        <tbody id="transaction-ledger-body" class="divide-y divide-gray-100 dark:divide-dark-border font-medium"></tbody>
+                    </table>
+                </div>
+            </div>
+
+            <div class="grid grid-cols-1 md:grid-cols-2 gap-6">
+                <div class="bg-white dark:bg-dark-card rounded-3xl p-6 shadow-soft border border-gray-100 dark:border-dark-border">
+                    <h3 class="font-bold text-sm mb-4">Income: Current vs Previous Month</h3>
+                    <div class="h-64 relative w-full"><canvas id="finance-income-chart"></canvas></div>
+                </div>
+                <div class="bg-white dark:bg-dark-card rounded-3xl p-6 shadow-soft border border-gray-100 dark:border-dark-border">
+                    <h3 class="font-bold text-sm mb-4">Performance: Current vs Previous Month</h3>
+                    <div class="h-64 relative w-full"><canvas id="finance-perf-chart"></canvas></div>
+                </div>
+            </div>
         </div>
 
-        <div id="admin-sub-monthly-data" class="space-y-6 hidden animate-fade-in">
+        <div id="finance-sub-monthly" class="space-y-6 hidden animate-fade-in">
           <div class="bg-white dark:bg-dark-card rounded-3xl p-6 shadow-soft border border-gray-100 dark:border-dark-border">
             <label class="block text-xs font-bold text-gray-500 uppercase tracking-wider mb-2">Customize Monthly View</label>
             <input type="month" id="monthly-filter-input" onchange="renderMonthlyAnalytics()" class="w-full max-w-sm bg-gray-50 dark:bg-dark-surface border border-gray-200 dark:border-dark-border rounded-xl p-3 outline-none focus:ring-2 focus:ring-brand-500 font-bold cursor-pointer">
@@ -239,19 +325,8 @@
             <div class="h-72 relative w-full"><canvas id="monthly-volume-chart"></canvas></div>
           </div>
         </div>
-        
-        <div id="admin-sub-clients" class="space-y-6 hidden animate-fade-in">
-          <div class="bg-white dark:bg-dark-card rounded-3xl p-6 shadow-soft border border-gray-100 dark:border-dark-border">
-            <label class="block text-xs font-bold text-gray-500 uppercase tracking-wider mb-2">Select Client Project</label>
-            <div class="relative">
-                <select id="client-status-select" onchange="renderClientStatus()" class="w-full bg-gray-50 dark:bg-dark-surface border border-gray-200 dark:border-dark-border rounded-xl p-3 outline-none focus:ring-2 focus:ring-brand-500 font-bold text-lg appearance-none cursor-pointer"></select>
-                <i class="fa-solid fa-chevron-down absolute right-4 top-1/2 -translate-y-1/2 text-gray-400"></i>
-            </div>
-          </div>
-          <div id="client-status-container" class="space-y-4"></div>
-        </div>
 
-        <div id="admin-sub-settings" class="space-y-6 hidden animate-fade-in grid grid-cols-1 md:grid-cols-2 gap-6">
+        <div id="finance-sub-settings" class="space-y-6 hidden animate-fade-in grid grid-cols-1 md:grid-cols-2 gap-6">
           <div class="bg-white dark:bg-dark-card rounded-3xl p-6 shadow-soft border border-gray-100 dark:border-dark-border h-max">
             <h3 class="font-bold text-lg mb-4">Manage Editors & Passwords</h3>
             <div class="flex gap-2 mb-6">
@@ -270,9 +345,18 @@
                 <button onclick="addNewRate()" class="px-4 bg-brand-500 text-white rounded-xl text-sm font-bold shadow transition"><i class="fa-solid fa-plus"></i></button>
             </div>
             <div id="admin-rate-card-list" class="space-y-3 mb-6"></div>
-            <button onclick="saveRateCard()" class="w-full bg-gray-900 text-white dark:bg-white dark:text-black font-bold rounded-xl py-4 transition shadow-lg">Save Standard Rates</button>
+            <button onclick="saveRateCard()" class="w-full bg-gray-900 text-white dark:bg-white dark:text-black font-bold rounded-xl py-4 transition shadow-lg hover:-translate-y-1">Save Standard Rates</button>
           </div>
         </div>
+      </main>
+
+      <!-- ================= VIEW: ADMIN INBOX (Ticketing) ================= -->
+      <main id="view-inbox" class="space-y-6 hidden animate-fade-in w-full max-w-3xl mx-auto">
+        <div>
+          <h2 class="font-bold text-2xl tracking-tight">Studio Inbox & Reports</h2>
+          <p class="text-gray-500 dark:text-gray-400 text-sm mt-1">Issues reported by editors regarding specific clients and workflows.</p>
+        </div>
+        <div id="inbox-list" class="space-y-4 mt-4"></div>
       </main>
 
       <!-- ================= VIEW: PROJECT TIMELINE ================= -->
@@ -302,10 +386,13 @@
     </div>
 
     <!-- FLOATING BOTTOM NAVIGATION BAR -->
-    <div id="bottom-nav" class="fixed bottom-6 left-1/2 -translate-x-1/2 bg-white dark:bg-[#1b1b22] border border-gray-200 dark:border-[#272732] px-6 py-3 rounded-full flex gap-3 sm:gap-8 shadow-float items-center z-40 transition-colors"></div>
+    <div id="bottom-nav" class="fixed bottom-6 left-1/2 -translate-x-1/2 bg-white dark:bg-[#1b1b22] border border-gray-200 dark:border-[#272732] px-6 py-3 rounded-full flex gap-3 sm:gap-8 shadow-float items-center z-40 transition-colors">
+    </div>
   </div>
 
   <!-- ================= OVERLAY MODALS ================= -->
+
+  <!-- PROFILE SETTINGS MODAL -->
   <div id="modal-profile" class="fixed inset-0 z-50 bg-black/70 backdrop-blur-sm hidden flex items-center justify-center p-4">
     <div class="bg-white dark:bg-dark-card border border-gray-100 dark:border-dark-border rounded-3xl w-full max-w-sm p-6 shadow-2xl relative animate-fade-in">
         <div class="flex justify-between items-center mb-6">
@@ -332,12 +419,54 @@
                 <label class="block text-[10px] font-bold text-gray-500 uppercase tracking-wider mb-1.5">Update Password</label>
                 <input type="password" id="profile-password" placeholder="Leave blank to keep current" class="w-full bg-gray-50 dark:bg-dark-surface border border-gray-200 dark:border-dark-border rounded-xl p-3 outline-none focus:ring-2 focus:ring-brand-500 font-medium text-sm">
             </div>
+            
             <button type="submit" class="w-full bg-gray-900 text-white dark:bg-white dark:text-black font-bold rounded-xl py-3.5 mt-2 transition shadow-lg hover:shadow-xl">Save Changes</button>
-            <button type="button" onclick="executeLogout()" class="w-full text-red-500 font-bold py-3 text-sm mt-2 hover:bg-red-50 dark:hover:bg-red-900/10 rounded-xl transition">Log Out</button>
         </form>
+
+        <div class="border-t border-gray-100 dark:border-dark-border mt-6 pt-5 flex flex-col gap-3">
+            <div id="profile-action-buttons" class="w-full"></div>
+            <button type="button" onclick="executeLogout()" class="w-full text-gray-500 font-bold py-3 text-sm hover:bg-gray-50 dark:hover:bg-dark-surface rounded-xl transition">Log Out <i class="fa-solid fa-arrow-right-from-bracket ml-1"></i></button>
+        </div>
     </div>
   </div>
 
+  <!-- EDITOR ISSUE REPORTING MODAL -->
+  <div id="modal-issue" class="fixed inset-0 z-[55] bg-black/70 backdrop-blur-sm hidden flex items-center justify-center p-4">
+    <div class="bg-white dark:bg-dark-card border border-gray-100 dark:border-dark-border rounded-3xl w-full max-w-md p-6 shadow-2xl relative animate-fade-in">
+      <button onclick="closeModal('modal-issue')" class="absolute top-4 right-4 w-8 h-8 flex items-center justify-center bg-gray-100 dark:bg-dark-surface rounded-full text-gray-500"><i class="fa-solid fa-xmark"></i></button>
+      <h3 class="text-xl font-bold mb-1">Report Issue</h3>
+      <p class="text-xs text-gray-500 mb-5">Tag a client and send details to the studio manager.</p>
+      
+      <form onsubmit="handleSendIssue(event)" class="space-y-4 text-sm">
+        <div>
+          <label class="block text-[10px] font-bold text-brand-500 uppercase tracking-wide mb-1.5"><i class="fa-solid fa-at"></i> Tag Client Project</label>
+          <input type="text" id="issue-client" list="issue-client-suggestions" required placeholder="Type to search client..." class="w-full bg-brand-50 dark:bg-brand-900/10 border border-brand-200 dark:border-brand-900/30 rounded-xl p-3 outline-none focus:ring-2 focus:ring-brand-500 font-medium">
+          <datalist id="issue-client-suggestions"></datalist>
+        </div>
+        <div>
+          <label class="block text-gray-500 dark:text-gray-400 text-xs font-bold uppercase tracking-wide mb-1.5">Describe Issue</label>
+          <textarea id="issue-msg" required rows="4" placeholder="Missing footage, audio sync error, client revision unclear..." class="w-full bg-gray-50 dark:bg-dark-surface border border-gray-200 dark:border-dark-border rounded-xl p-3 outline-none focus:ring-2 focus:ring-brand-500 font-medium resize-none"></textarea>
+        </div>
+        <button type="submit" class="w-full bg-brand-500 hover:bg-brand-600 text-white font-bold rounded-xl py-3.5 transition shadow-lg shadow-brand-500/30"><i class="fa-solid fa-paper-plane mr-1"></i> Send to Admin</button>
+      </form>
+    </div>
+  </div>
+
+  <!-- ADMIN DATA RESET MODAL -->
+  <div id="modal-reset" class="fixed inset-0 z-[60] bg-black/80 backdrop-blur-md hidden flex items-center justify-center p-4">
+    <div class="bg-white dark:bg-dark-card border border-red-500/50 rounded-3xl w-full max-w-sm p-6 shadow-2xl relative text-center animate-fade-in">
+        <div class="w-16 h-16 bg-red-100 dark:bg-red-900/30 text-red-500 rounded-full flex items-center justify-center text-3xl mx-auto mb-4"><i class="fa-solid fa-triangle-exclamation"></i></div>
+        <h3 class="text-xl font-bold mb-2">Factory Reset System</h3>
+        <p class="text-sm text-gray-500 dark:text-gray-400 mb-6">This will delete all deliverables, rosters, and financial ledgers. Type <strong>delete</strong> to confirm.</p>
+        <input type="text" id="reset-confirm-text" class="w-full bg-gray-50 dark:bg-dark-surface border border-gray-200 dark:border-dark-border rounded-xl p-3 outline-none text-center font-bold mb-4" placeholder="Type 'delete'">
+        <div class="flex gap-3">
+            <button onclick="closeModal('modal-reset')" class="flex-1 py-3 rounded-xl border border-gray-200 dark:border-dark-border font-bold text-gray-600 dark:text-gray-300">Cancel</button>
+            <button onclick="executeReset()" class="flex-1 bg-red-500 hover:bg-red-600 text-white font-bold rounded-xl py-3 transition shadow-lg shadow-red-500/30">Wipe Data</button>
+        </div>
+    </div>
+  </div>
+
+  <!-- DELIVERABLE CREATION & EDIT MODAL -->
   <div id="modal-task" class="fixed inset-0 z-50 bg-black/70 backdrop-blur-sm hidden flex items-center justify-center p-4">
     <div class="bg-white dark:bg-dark-card border border-gray-100 dark:border-dark-border rounded-3xl w-full max-w-md p-6 shadow-2xl relative animate-fade-in">
       <button onclick="closeModal('modal-task')" class="absolute top-4 right-4 w-8 h-8 flex items-center justify-center bg-gray-100 dark:bg-dark-surface rounded-full text-gray-500 hover:text-brand-500 transition"><i class="fa-solid fa-xmark"></i></button>
@@ -390,6 +519,7 @@
           <div>
             <label class="block text-brand-500 text-[10px] font-bold uppercase tracking-wide mb-1.5">Custom Payout Override (₹)</label>
             <input type="number" id="task-override" placeholder="Leave blank to use standard rate" class="w-full bg-gray-50 dark:bg-dark-surface border border-gray-200 dark:border-dark-border rounded-xl p-3 outline-none font-medium">
+            <p class="text-[10px] text-gray-400 mt-1.5 italic">Overrides the global rate card for this specific project.</p>
           </div>
         </div>
 
@@ -398,6 +528,7 @@
     </div>
   </div>
 
+  <!-- EDITOR STATUS UPDATE MODAL -->
   <div id="modal-status" class="fixed inset-0 z-50 bg-black/70 backdrop-blur-sm hidden flex items-center justify-center p-4">
     <div class="bg-white dark:bg-dark-card border border-gray-100 dark:border-dark-border rounded-3xl w-full max-w-sm p-6 shadow-2xl relative text-center animate-fade-in">
       <button onclick="closeModal('modal-status')" class="absolute top-4 right-4 w-8 h-8 flex items-center justify-center bg-gray-100 dark:bg-dark-surface rounded-full text-gray-500"><i class="fa-solid fa-xmark"></i></button>
@@ -406,111 +537,198 @@
       
       <input type="hidden" id="status-update-id">
       <div class="space-y-3">
-        <button onclick="updateEditorStatus('Working')" class="w-full py-3.5 rounded-xl border border-gray-200 dark:border-dark-border font-bold hover:bg-brand-50 hover:text-brand-500 transition">Working</button>
-        <button onclick="updateEditorStatus('Internal Review')" class="w-full py-3.5 rounded-xl border border-gray-200 dark:border-dark-border font-bold hover:bg-brand-50 hover:text-brand-500 transition">Internal Review</button>
-        <button onclick="updateEditorStatus('Client Review')" class="w-full py-3.5 rounded-xl border border-gray-200 dark:border-dark-border font-bold hover:bg-brand-50 hover:text-brand-500 transition">Client Review</button>
-        <button onclick="updateEditorStatus('Completed')" class="w-full py-3.5 rounded-xl bg-gray-900 text-white dark:bg-white dark:text-black font-bold transition mt-2">Mark as Completed</button>
+        <button onclick="updateEditorStatus('Working')" class="w-full py-3.5 rounded-xl border border-gray-200 dark:border-dark-border font-bold hover:bg-brand-50 dark:hover:bg-brand-900/20 hover:text-brand-500 hover:border-brand-200 transition text-gray-700 dark:text-gray-300">Working</button>
+        <button onclick="updateEditorStatus('Internal Review')" class="w-full py-3.5 rounded-xl border border-gray-200 dark:border-dark-border font-bold hover:bg-brand-50 dark:hover:bg-brand-900/20 hover:text-brand-500 hover:border-brand-200 transition text-gray-700 dark:text-gray-300">Internal Review</button>
+        <button onclick="updateEditorStatus('Client Review')" class="w-full py-3.5 rounded-xl border border-gray-200 dark:border-dark-border font-bold hover:bg-brand-50 dark:hover:bg-brand-900/20 hover:text-brand-500 hover:border-brand-200 transition text-gray-700 dark:text-gray-300">Client Review</button>
+        <button onclick="updateEditorStatus('Completed')" class="w-full py-3.5 rounded-xl bg-gray-900 text-white dark:bg-white dark:text-black font-bold transition shadow-lg mt-2">Mark as Completed</button>
       </div>
     </div>
   </div>
 
+  <!-- ADMIN PARTIAL PAYMENT MODAL -->
   <div id="modal-payment" class="fixed inset-0 z-[55] bg-black/70 backdrop-blur-sm hidden flex items-center justify-center p-4">
     <div class="bg-white dark:bg-dark-card border border-gray-100 dark:border-dark-border rounded-3xl w-full max-w-sm p-6 shadow-2xl relative animate-fade-in">
-      <button onclick="closeModal('modal-payment')" class="absolute top-4 right-4 w-8 h-8 flex items-center justify-center bg-gray-100 rounded-full"><i class="fa-solid fa-xmark"></i></button>
+      <button onclick="closeModal('modal-payment')" class="absolute top-4 right-4 w-8 h-8 flex items-center justify-center bg-gray-100 dark:bg-dark-surface rounded-full text-gray-500"><i class="fa-solid fa-xmark"></i></button>
       <h3 class="text-xl font-bold mb-1">Record Payment</h3>
       <p id="payment-editor-name" class="text-xs text-brand-500 mb-4 font-bold uppercase tracking-wide"></p>
-      <div class="mb-4 bg-gray-50 p-4 rounded-xl border border-gray-200"><p id="payment-pending-amt" class="text-2xl font-black">₹0</p></div>
+      
+      <div class="mb-4 bg-gray-50 dark:bg-dark-surface p-4 rounded-xl border border-gray-200 dark:border-dark-border">
+          <p class="text-[10px] text-gray-500 font-bold uppercase tracking-widest mb-1">Total Pending Liability</p>
+          <p id="payment-pending-amt" class="text-2xl font-black text-gray-900 dark:text-white">₹0</p>
+      </div>
+
       <input type="hidden" id="payment-editor-id">
-      <input type="number" id="payment-amount" required class="w-full bg-gray-50 border border-gray-200 rounded-xl p-3 mb-4">
-      <button onclick="submitPayment()" class="w-full bg-green-500 text-white font-bold rounded-xl py-3.5">Confirm Record</button>
+      
+      <label class="block text-gray-500 dark:text-gray-400 text-xs font-bold uppercase tracking-wide mb-1.5">Amount Transferred (₹)</label>
+      <input type="number" id="payment-amount" required class="w-full bg-gray-50 dark:bg-dark-surface border border-gray-200 dark:border-dark-border rounded-xl p-3 outline-none focus:ring-2 focus:ring-brand-500 font-medium mb-4">
+      
+      <button onclick="submitPayment()" class="w-full bg-green-500 hover:bg-green-600 text-white font-bold rounded-xl py-3.5 transition shadow-lg shadow-green-500/30">Confirm Record</button>
     </div>
   </div>
 
   <script>
     /* =====================================================================
-       SUPABASE CLOUD DATABASE CONNECTION
+       1. STATE MANAGEMENT, SUPABASE & LOCALSTORAGE
        ===================================================================== */
-    const { createClient } = supabase;
-    
-    const supabaseUrl = 'https://whzezkgwgfizuufwgypf.supabase.co';
-    const supabaseKey = 'eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJpc3MiOiJzdXBhYmFzZSIsInJlZiI6IndoemV6a2d3Z2ZpenV1ZndneXBmIiwicm9sZSI6ImFub24iLCJpYXQiOjE3OTA1MzYwMjAsImV4cCI6MjEwNjExMjAyMH0.DtV_caVwUQ20UTx4IAcX7_L0SHF1w3yXBvn61-i-vrI';
-    
-    const db = createClient(supabaseUrl, supabaseKey);
-
-    /* =====================================================================
-       STATE MANAGEMENT
-       ===================================================================== */
-    const STORAGE_KEY = 'twc_app_data_v5';
+    const STORAGE_KEY = 'twc_app_data_v5'; 
     const DEFAULT_EDITORS = ['Hashim', 'Haseeb', 'Ashik', 'Adhil', 'Aslam'];
-    const DEFAULT_RATES = { 'Reels': 7000, 'Highlights': 4500, 'Wedding Film': 8000, 'Teaser': 1500, 'Edited Photos': 2500 };
+    const DEFAULT_RATES = {
+      'Reels': 7000, 'Highlights': 4500, 'Wedding Film': 8000, 
+      'Teaser': 1500, 'Edited Photos': 2500, 'Album Design': 1000
+    };
+
+    // Supabase Connection
+    const SUPABASE_URL = 'https://whzezkgwgfizuufwgypf.supabase.co';
+    const SUPABASE_ANON_KEY = 'eyJpc3MiOiJzdXBhYmFzZSIsInJlZiI6IndoemV6a2d3Z2ZpenV1ZndneXBmIiwicm9sZSI6ImFub24iLCJpYXQiOjE3OTA1MzYwMjAsImV4cCI6MjEwNjExMjAyMH0.DtV_caVwUQ20UTx4IAcX7_L0SHF1w3yXBvn61-i-vrI';
     
-    let appState = { editors: [...DEFAULT_EDITORS], rates: {...DEFAULT_RATES}, deliverables: [], passwords: { 'Manager': '' }, profileImages: {}, notifications: {} };
-    let currentUser = null; let isAdmin = false; let activeNavView = 'home'; let currentTaskFilter = 'All'; let activeChartInstances = {}; 
+    let supabaseClient = null;
+    if (window.supabase && SUPABASE_ANON_KEY !== 'PASTE_YOUR_SUPABASE_ANON_KEY_HERE') {
+        supabaseClient = window.supabase.createClient(SUPABASE_URL, SUPABASE_ANON_KEY);
+    }
+    
+    let appState = { 
+        editors: [...DEFAULT_EDITORS], 
+        rates: {...DEFAULT_RATES}, 
+        deliverables: [],
+        passwords: { 'Manager': '' },
+        profileImages: {},
+        notifications: {},
+        transactions: [],
+        inbox: []
+    };
+    let currentUser = null;
+    let isAdmin = false;
+    let activeNavView = 'home';
+    let currentTaskFilter = 'All';
+    let activeChartInstances = {}; 
 
     const getTodayStr = () => { const d = new Date(); d.setMinutes(d.getMinutes() - d.getTimezoneOffset()); return d.toISOString().split('T')[0]; };
+    const getPrevMonthStr = () => { 
+        const d = new Date(); d.setMonth(d.getMonth() - 1); 
+        return `${d.getFullYear()}-${String(d.getMonth() + 1).padStart(2, '0')}`;
+    };
     const formatINR = (num) => new Intl.NumberFormat('en-IN', { style: 'currency', currency: 'INR', maximumFractionDigits: 0 }).format(num);
     const getTextColor = () => document.documentElement.classList.contains('dark') ? '#9ca3af' : '#4b5563';
     const getGridColor = () => document.documentElement.classList.contains('dark') ? '#272732' : '#f3f4f6';
 
     window.onload = async () => {
-        loadLocalState();
         populateLoginDropdown();
-        await fetchCloudData(); 
-        populateLoginDropdown(); 
-        setupRealtime();
+        await loadState();
+        initRealtime();
+        if(appState.deliverables.length === 0) seedDummyData();
+        populateLoginDropdown();
     };
 
-    function loadLocalState() {
+    async function loadState() {
         const stored = localStorage.getItem(STORAGE_KEY);
         if (stored) {
             appState = JSON.parse(stored);
             if(!appState.passwords) appState.passwords = { 'Manager': '' };
             if(!appState.profileImages) appState.profileImages = {};
             if(!appState.notifications) appState.notifications = {};
+            if(!appState.transactions) appState.transactions = [];
+            if(!appState.inbox) appState.inbox = [];
         }
-    }
 
-    async function fetchCloudData() {
-        try {
-            const { data: metaData } = await db.from('app_meta').select('*').eq('key', 'global_state').single();
-            if (metaData && metaData.data) {
-                appState.editors = metaData.data.editors || DEFAULT_EDITORS;
-                appState.rates = metaData.data.rates || DEFAULT_RATES;
-                appState.passwords = metaData.data.passwords || { 'Manager': '' };
-                appState.profileImages = metaData.data.profileImages || {};
-                appState.notifications = metaData.data.notifications || {};
+        if (supabaseClient) {
+            try {
+                const { data: deliverablesData } = await supabaseClient.from('deliverables').select('*');
+                if (deliverablesData && deliverablesData.length > 0) {
+                    appState.deliverables = deliverablesData;
+                }
+
+                const { data: metaRows } = await supabaseClient.from('app_meta').select('*').eq('key', 'global');
+                if (metaRows && metaRows.length > 0 && metaRows[0].data) {
+                    const d = metaRows[0].data;
+                    if(d.editors) appState.editors = d.editors;
+                    if(d.rates) appState.rates = d.rates;
+                    if(d.passwords) appState.passwords = d.passwords;
+                    if(d.profileImages) appState.profileImages = d.profileImages;
+                    if(d.notifications) appState.notifications = d.notifications;
+                    if(d.transactions) appState.transactions = d.transactions;
+                    if(d.inbox) appState.inbox = d.inbox;
+                }
+                localStorage.setItem(STORAGE_KEY, JSON.stringify(appState));
+                if (currentUser) refreshCurrentView();
+            } catch (err) {
+                console.warn("Supabase fetch fallback:", err);
             }
-
-            const { data: delivData } = await db.from('deliverables').select('*');
-            if (delivData) appState.deliverables = delivData;
-            
-            localStorage.setItem(STORAGE_KEY, JSON.stringify(appState));
-            if (currentUser) { refreshCurrentView(); updateHeaderAvatars(); buildClientSuggestions(); }
-        } catch (err) { console.error("Cloud fetch failed:", err); }
+        }
     }
 
     async function saveState() {
         localStorage.setItem(STORAGE_KEY, JSON.stringify(appState));
-        try {
-            const metaPayload = { editors: appState.editors, rates: appState.rates, passwords: appState.passwords, profileImages: appState.profileImages, notifications: appState.notifications };
-            await db.from('app_meta').upsert({ key: 'global_state', data: metaPayload });
-            if (appState.deliverables.length > 0) await db.from('deliverables').upsert(appState.deliverables);
-        } catch (err) { console.error("Cloud sync error:", err); }
+        
+        if (supabaseClient) {
+            try {
+                if (appState.deliverables.length > 0) {
+                    await supabaseClient.from('deliverables').upsert(appState.deliverables);
+                }
+                const metaPayload = {
+                    editors: appState.editors,
+                    rates: appState.rates,
+                    passwords: appState.passwords,
+                    profileImages: appState.profileImages,
+                    notifications: appState.notifications,
+                    transactions: appState.transactions,
+                    inbox: appState.inbox
+                };
+                await supabaseClient.from('app_meta').upsert({ key: 'global', data: metaPayload });
+            } catch (err) {
+                console.error("Supabase sync error:", err);
+            }
+        }
     }
 
-    function setupRealtime() {
-        db.channel('custom-all-channel')
-          .on('postgres_changes', { event: '*', schema: 'public', table: 'deliverables' }, payload => { fetchCloudData(); })
-          .on('postgres_changes', { event: '*', schema: 'public', table: 'app_meta' }, payload => { fetchCloudData(); })
-          .subscribe();
+    function initRealtime() {
+        if (!supabaseClient) return;
+        supabaseClient.channel('schema-db-changes')
+            .on('postgres_changes', { event: '*', schema: 'public', table: 'deliverables' }, () => {
+                loadState();
+            })
+            .on('postgres_changes', { event: '*', schema: 'public', table: 'app_meta' }, () => {
+                loadState();
+            })
+            .subscribe();
+    }
+
+    function seedDummyData() {
+        const tdy = getTodayStr();
+        const prevM = getPrevMonthStr() + '-15';
+        const nextWkStr = new Date(new Date().getTime() + 7 * 24 * 60 * 60 * 1000).toISOString().split('T')[0];
+        
+        appState.deliverables = [
+            { id: '1', client: 'Sandra & Sanjith', type: 'Wedding Film', editor: 'Hashim', status: 'Working', deadline: tdy, created: '2026-09-01', overrideRate: null, paidAmount: 0 },
+            { id: '2', client: 'Farha & Niaz', type: 'Reels', editor: 'Hashim', status: 'Completed', deadline: tdy, created: prevM, completed: prevM, overrideRate: null, paidAmount: 7000, paidDate: prevM },
+            { id: '3', client: 'Client Ex', type: 'Highlights', editor: 'Haseeb', status: 'Internal Review', deadline: tdy, created: '2026-09-22', overrideRate: null, paidAmount: 0 },
+            { id: '4', client: 'Mega Wedding', type: 'Edited Photos', editor: 'Hashim', status: 'Not Started', deadline: nextWkStr, created: tdy, overrideRate: 3500, paidAmount: 0 },
+            { id: '5', client: 'VIP Client', type: 'Teaser', editor: 'Ashik', status: 'Completed', deadline: prevM, created: prevM, completed: prevM, overrideRate: null, paidAmount: 1500, paidDate: prevM },
+            { id: '6', client: 'Destination Shoot', type: 'Wedding Film', editor: 'Adhil', status: 'Client Review', deadline: nextWkStr, created: tdy, overrideRate: 12000, paidAmount: 0 }
+        ];
+
+        appState.transactions.push({ id: 'tx1', date: prevM, time: '14:30:00', editor: 'Hashim', amount: 7000 });
+        appState.transactions.push({ id: 'tx2', date: prevM, time: '09:15:00', editor: 'Ashik', amount: 1500 });
+        
+        saveState();
+    }
+
+    function showToast(message) {
+        const t = document.getElementById('global-toast');
+        document.getElementById('toast-msg').innerText = message;
+        t.classList.remove('hidden');
+        t.classList.remove('toast-animate');
+        void t.offsetWidth;
+        t.classList.add('toast-animate');
+        setTimeout(() => t.classList.add('hidden'), 3000);
     }
 
     /* =====================================================================
-       AUTHENTICATION & CORE LOGIC
+       2. AUTHENTICATION & ROUTING
        ===================================================================== */
     function populateLoginDropdown() {
         const select = document.getElementById('login-name');
-        select.innerHTML = `<option value="" disabled selected>Select user profile...</option><option value="Manager">Control Room Manager (Admin)</option>`;
+        select.innerHTML = `<option value="" disabled selected>Select user profile...</option>`;
+        select.innerHTML += `<option value="Manager">Control Room Manager (Admin)</option>`;
         appState.editors.forEach(e => select.innerHTML += `<option value="${e}">${e}</option>`);
     }
 
@@ -521,18 +739,39 @@
         
         if(!selectedUser) return;
         const expectedPwd = appState.passwords[selectedUser] || '';
-        if (expectedPwd !== '' && enteredPwd !== expectedPwd) return alert('Incorrect password for ' + selectedUser);
+        if (expectedPwd !== '' && enteredPwd !== expectedPwd) {
+            alert('Incorrect password for ' + selectedUser);
+            return;
+        }
 
-        currentUser = selectedUser; isAdmin = (currentUser === 'Manager');
+        currentUser = selectedUser;
+        isAdmin = (currentUser === 'Manager');
         document.getElementById('login-view').classList.add('opacity-0', 'pointer-events-none');
         
         setTimeout(() => {
             document.getElementById('login-view').classList.add('hidden');
             document.getElementById('main-app').classList.remove('hidden');
-            updateHeaderAvatars(); document.getElementById('header-role').innerText = isAdmin ? 'SYSTEM ADMINISTRATOR' : 'EDITOR PORTAL';
-            buildNav(); buildDropdowns(); buildClientSuggestions();
-            if(isAdmin) { switchAppView('view-admin'); switchAdminTab('overview'); }
-            else { switchAppView('view-home'); setTimeout(() => { checkNotifications(); if(document.getElementById('modal-notification').classList.contains('hidden')){ checkDailyBriefing(); } }, 500); }
+            
+            updateHeaderAvatars();
+            document.getElementById('header-role').innerText = isAdmin ? 'SYSTEM ADMINISTRATOR' : 'EDITOR PORTAL';
+            
+            buildNav();
+            buildDropdowns();
+            buildClientSuggestions();
+            buildProfileButtons();
+            
+            if(isAdmin) {
+                switchAppView('view-admin');
+                switchAdminTab('overview');
+            } else {
+                switchAppView('view-home');
+                setTimeout(() => {
+                    checkNotifications(); 
+                    if(document.getElementById('modal-notification').classList.contains('hidden')){
+                        checkDailyBriefing();
+                    }
+                }, 500);
+            }
         }, 400);
     }
     
@@ -540,6 +779,7 @@
         const initials = isAdmin ? 'AD' : currentUser.substring(0, 2).toUpperCase();
         const img = appState.profileImages && appState.profileImages[currentUser];
         const html = img ? `<img src="${img}" class="w-full h-full object-cover">` : initials;
+        
         document.getElementById('header-avatar').innerHTML = html;
         document.getElementById('profile-modal-avatar').innerHTML = html;
     }
@@ -548,236 +788,1037 @@
         const file = event.target.files[0];
         if (file) {
             const reader = new FileReader();
-            reader.onload = function(e) { appState.profileImages[currentUser] = e.target.result; saveState(); updateHeaderAvatars(); };
+            reader.onload = function(e) {
+                appState.profileImages[currentUser] = e.target.result;
+                saveState();
+                updateHeaderAvatars();
+                showToast("Profile image updated");
+            };
             reader.readAsDataURL(file);
         }
     }
 
     function buildNav() {
         const nav = document.getElementById('bottom-nav');
-        if(isAdmin) { nav.innerHTML = `<button onclick="switchAppView('view-admin')" id="nav-view-admin" class="nav-item w-14 h-14 flex items-center justify-center text-gray-500 transition shadow-sm"><i class="fa-solid fa-chart-line text-lg"></i></button> <button onclick="switchAppView('view-tasks')" id="nav-view-tasks" class="nav-item w-14 h-14 flex items-center justify-center text-gray-500 transition shadow-sm"><i class="fa-solid fa-layer-group text-lg"></i></button> <button onclick="openModal('modal-profile')" class="nav-item w-14 h-14 flex items-center justify-center text-gray-500 hover:text-gray-900 dark:hover:text-white transition shadow-sm"><i class="fa-solid fa-gear text-lg"></i></button>`; } 
-        else { nav.innerHTML = `<button onclick="switchAppView('view-home')" id="nav-view-home" class="nav-item w-14 h-14 flex items-center justify-center text-gray-500 transition shadow-sm"><i class="fa-solid fa-house text-lg"></i></button> <button onclick="switchAppView('view-tasks')" id="nav-view-tasks" class="nav-item w-14 h-14 flex items-center justify-center text-gray-500 transition shadow-sm"><i class="fa-solid fa-list-check text-lg"></i></button> <button onclick="openModal('modal-profile')" class="nav-item w-14 h-14 flex items-center justify-center text-gray-500 hover:text-gray-900 dark:hover:text-white transition shadow-sm"><i class="fa-solid fa-gear text-lg"></i></button>`; }
+        if(isAdmin) {
+            nav.innerHTML = `
+                <button onclick="switchAppView('view-admin')" id="nav-view-admin" class="nav-item w-14 h-14 flex items-center justify-center text-gray-500 transition shadow-sm"><i class="fa-solid fa-chart-pie text-lg"></i></button>
+                <button onclick="switchAppView('view-tasks')" id="nav-view-tasks" class="nav-item w-14 h-14 flex items-center justify-center text-gray-500 transition shadow-sm"><i class="fa-solid fa-layer-group text-lg"></i></button>
+                <button onclick="switchAppView('view-finance')" id="nav-view-finance" class="nav-item w-14 h-14 flex items-center justify-center text-gray-500 transition shadow-sm"><i class="fa-solid fa-wallet text-lg"></i></button>
+                <button onclick="switchAppView('view-inbox')" id="nav-view-inbox" class="nav-item w-14 h-14 flex items-center justify-center text-gray-500 transition shadow-sm relative">
+                    <i class="fa-solid fa-envelope text-lg"></i>
+                    ${appState.inbox.filter(i=>!i.resolved).length > 0 ? '<span class="absolute top-3 right-3 w-2 h-2 bg-red-500 rounded-full"></span>' : ''}
+                </button>
+            `;
+        } else {
+            nav.innerHTML = `
+                <button onclick="switchAppView('view-home')" id="nav-view-home" class="nav-item w-14 h-14 flex items-center justify-center text-gray-500 transition shadow-sm"><i class="fa-solid fa-house text-lg"></i></button>
+                <button onclick="switchAppView('view-tasks')" id="nav-view-tasks" class="nav-item w-14 h-14 flex items-center justify-center text-gray-500 transition shadow-sm"><i class="fa-solid fa-list-check text-lg"></i></button>
+            `;
+        }
+    }
+
+    function buildProfileButtons() {
+        const cont = document.getElementById('profile-action-buttons');
+        if (isAdmin) {
+            cont.innerHTML = `<button type="button" onclick="openModal('modal-reset')" class="w-full text-red-500 font-bold py-3 border border-red-200 dark:border-red-900/50 hover:bg-red-50 dark:hover:bg-red-900/20 rounded-xl transition text-sm"><i class="fa-solid fa-triangle-exclamation mr-1"></i> Reset System Data</button>`;
+        } else {
+            cont.innerHTML = `<button type="button" onclick="openModal('modal-issue')" class="w-full text-brand-500 font-bold py-3 border border-brand-200 dark:border-brand-900/50 hover:bg-brand-50 dark:hover:bg-brand-900/20 rounded-xl transition text-sm"><i class="fa-solid fa-headset mr-1"></i> Report Issue to Admin</button>`;
+        }
     }
 
     function switchAppView(viewId) {
         activeNavView = viewId;
-        ['view-home', 'view-admin', 'view-tasks'].forEach(v => { const el = document.getElementById(v); if(el) { el.classList.add('hidden'); el.classList.remove('block'); } });
-        document.getElementById(viewId).classList.remove('hidden'); document.getElementById(viewId).classList.add('block');
+        ['view-home', 'view-admin', 'view-tasks', 'view-finance', 'view-inbox'].forEach(v => {
+            const el = document.getElementById(v);
+            if(el) { el.classList.add('hidden'); el.classList.remove('block'); }
+        });
+        document.getElementById(viewId).classList.remove('hidden');
+        document.getElementById(viewId).classList.add('block');
+        
         document.querySelectorAll('.nav-item').forEach(el => el.classList.remove('active'));
-        const activeNav = document.getElementById(`nav-${viewId}`); if(activeNav) activeNav.classList.add('active');
+        const activeNav = document.getElementById(`nav-${viewId}`);
+        if(activeNav) activeNav.classList.add('active');
+
         refreshCurrentView();
     }
 
     function refreshCurrentView() {
         if(activeNavView === 'view-home' && !isAdmin) renderEditorHome();
         if(activeNavView === 'view-tasks') { renderTasksList(); renderFutureReminders(); }
-        if(activeNavView === 'view-admin' && isAdmin) { const activeTab = document.querySelector('.admin-tab.active'); if(activeTab) switchAdminTab(activeTab.id.replace('tab-', '')); }
+        if(activeNavView === 'view-admin' && isAdmin) {
+            const activeTab = document.querySelector('.admin-tab.active');
+            if(activeTab) switchAdminTab(activeTab.id.replace('tab-', ''));
+        }
+        if(activeNavView === 'view-finance' && isAdmin) {
+            const activeTab = document.querySelector('.finance-tab.active');
+            if(activeTab) switchFinanceTab(activeTab.id.replace('finance-tab-', ''));
+        }
+        if(activeNavView === 'view-inbox' && isAdmin) renderInbox();
     }
 
     function handleSaveProfile(e) {
         e.preventDefault();
         const newName = document.getElementById('profile-name').value.trim();
         const newPwd = document.getElementById('profile-password').value;
-        if (newPwd !== "") appState.passwords[currentUser] = newPwd;
+
+        if (newPwd !== "") {
+            appState.passwords[currentUser] = newPwd;
+        }
+
         if(newName && !isAdmin && newName !== currentUser) {
             appState.deliverables.forEach(d => { if(d.editor === currentUser) d.editor = newName; });
-            const edIdx = appState.editors.indexOf(currentUser); if(edIdx > -1) appState.editors[edIdx] = newName;
-            appState.passwords[newName] = appState.passwords[currentUser] || ''; delete appState.passwords[currentUser];
-            if(appState.profileImages[currentUser]) { appState.profileImages[newName] = appState.profileImages[currentUser]; delete appState.profileImages[currentUser]; }
+            appState.transactions.forEach(t => { if(t.editor === currentUser) t.editor = newName; });
+            appState.inbox.forEach(i => { if(i.from === currentUser) i.from = newName; });
+
+            const edIdx = appState.editors.indexOf(currentUser);
+            if(edIdx > -1) appState.editors[edIdx] = newName;
+            
+            appState.passwords[newName] = appState.passwords[currentUser] || '';
+            delete appState.passwords[currentUser];
+            
+            if(appState.profileImages[currentUser]) {
+                appState.profileImages[newName] = appState.profileImages[currentUser];
+                delete appState.profileImages[currentUser];
+            }
             currentUser = newName;
         }
-        saveState(); closeModal('modal-profile'); updateHeaderAvatars(); refreshCurrentView(); document.getElementById('profile-password').value = '';
+
+        saveState();
+        closeModal('modal-profile');
+        updateHeaderAvatars();
+        refreshCurrentView();
+        document.getElementById('profile-password').value = '';
+        showToast("Profile Updated");
     }
 
     function executeLogout() {
-        closeModal('modal-profile'); currentUser = null; isAdmin = false;
+        closeModal('modal-profile');
+        currentUser = null; isAdmin = false;
         document.getElementById('main-app').classList.add('hidden');
         document.getElementById('login-view').classList.remove('hidden', 'opacity-0', 'pointer-events-none');
         document.getElementById('login-password').value = ''; 
+        
         Object.keys(activeChartInstances).forEach(key => destroyChart(key));
     }
     
     function logInAsEditor(edName) {
         if(!isAdmin) return;
         currentUser = edName; isAdmin = false;
-        updateHeaderAvatars(); document.getElementById('header-role').innerText = 'EDITOR PORTAL (ADMIN VIEW)';
-        buildNav(); switchAppView('view-home');
+        updateHeaderAvatars();
+        document.getElementById('header-role').innerText = 'EDITOR PORTAL (ADMIN VIEW)';
+        buildNav();
+        buildProfileButtons();
+        switchAppView('view-home');
+        showToast(`Viewing as ${edName}`);
     }
 
+    async function executeReset() {
+        if(document.getElementById('reset-confirm-text').value.toLowerCase() === 'delete') {
+            if (supabaseClient) {
+                await supabaseClient.from('deliverables').delete().neq('id', '0');
+                await supabaseClient.from('app_meta').delete().neq('key', '0');
+            }
+            localStorage.removeItem(STORAGE_KEY);
+            location.reload();
+        } else {
+            alert("Type 'delete' to confirm.");
+        }
+    }
+
+    /* =====================================================================
+       3. EDITOR DASHBOARD, TICKETS & NOTIFICATIONS
+       ===================================================================== */
     function checkNotifications() {
         if (!isAdmin && appState.notifications && appState.notifications[currentUser] && appState.notifications[currentUser].length > 0) {
-            document.getElementById('notification-msg').innerHTML = appState.notifications[currentUser].join('<br><br>');
-            openModal('modal-notification'); appState.notifications[currentUser] = []; saveState();
+            const msgs = appState.notifications[currentUser].join('<br><br>');
+            document.getElementById('notification-msg').innerHTML = msgs;
+            openModal('modal-notification');
+            appState.notifications[currentUser] = []; 
+            saveState();
         }
     }
        
     function checkDailyBriefing() {
         const myTasks = appState.deliverables.filter(d => d.editor === currentUser && d.status !== 'Completed');
-        const todayStr = getTodayStr(); const urgent = myTasks.filter(d => d.deadline <= todayStr);
+        const todayStr = getTodayStr();
+        const urgent = myTasks.filter(d => d.deadline <= todayStr);
+        
         if(urgent.length > 0) {
-            document.getElementById('briefing-list').innerHTML = urgent.map(t => `<div class="bg-gray-50 p-4 rounded-xl border-l-4 ${t.deadline < todayStr ? 'border-red-500' : 'border-brand-500'} mb-3"><p class="font-bold text-sm">${t.client}</p><p class="text-xs font-semibold text-gray-500 uppercase">${t.type} — Due: ${t.deadline}</p></div>`).join('');
+            const list = document.getElementById('briefing-list');
+            list.innerHTML = urgent.map(t => `
+                <div class="bg-gray-50 dark:bg-dark-surface p-4 rounded-xl border-l-4 ${t.deadline < todayStr ? 'border-red-500' : 'border-brand-500'} mb-3">
+                    <p class="font-bold text-sm text-gray-900 dark:text-white">${t.client}</p>
+                    <p class="text-xs font-semibold text-gray-500 uppercase tracking-wider mt-1">${t.type} — Due: ${t.deadline}</p>
+                </div>
+            `).join('');
             document.getElementById('briefing-subtitle').innerText = `${urgent.length} deliverable(s) require immediate action.`;
             openModal('modal-briefing');
         }
+    }
+
+    function handleSendIssue(e) {
+        e.preventDefault();
+        appState.inbox.push({
+            id: Date.now().toString(),
+            date: getTodayStr(),
+            from: currentUser,
+            client: document.getElementById('issue-client').value.trim(),
+            message: document.getElementById('issue-msg').value.trim(),
+            resolved: false
+        });
+        saveState();
+        closeModal('modal-issue');
+        showToast("Issue reported to manager");
+        document.getElementById('issue-msg').value = '';
+        document.getElementById('issue-client').value = '';
     }
 
     function renderEditorHome() {
         document.getElementById('greet-name').innerText = currentUser;
         const myTasks = appState.deliverables.filter(d => d.editor === currentUser);
         const compTasks = myTasks.filter(d => d.status === 'Completed');
-        document.getElementById('editor-completion-pct').innerText = `${myTasks.length ? Math.round((compTasks.length / myTasks.length) * 100) : 0}%`;
+        
+        const pct = myTasks.length ? Math.round((compTasks.length / myTasks.length) * 100) : 0;
+        document.getElementById('editor-completion-pct').innerText = `${pct}%`;
         
         let pendingEarnings = 0; let lifetimeEarnings = 0;
-        compTasks.forEach(t => { const val = t.overrideRate !== null ? Number(t.overrideRate) : appState.rates[t.type]; const paid = t.paidAmount || 0; pendingEarnings += (val - paid); lifetimeEarnings += paid; });
+        compTasks.forEach(t => {
+            const val = t.overrideRate !== null ? Number(t.overrideRate) : appState.rates[t.type];
+            const paid = t.paidAmount || 0;
+            pendingEarnings += (val - paid);
+            lifetimeEarnings += paid;
+        });
+        
         document.getElementById('editor-pending-earnings').innerText = formatINR(pendingEarnings);
         document.getElementById('editor-lifetime-earnings').innerText = formatINR(lifetimeEarnings);
 
-        const todaysTasks = myTasks.filter(t => t.deadline === getTodayStr() && t.status !== 'Completed');
-        document.getElementById('home-today-list').innerHTML = todaysTasks.length > 0 ? todaysTasks.map(t => `<div class="flex justify-between items-center bg-gray-50 p-4 rounded-2xl border border-gray-100 cursor-pointer hover:border-brand-200 transition" onclick="openStatusModal('${t.id}', '${t.type}')"><div class="flex items-center gap-3"><div class="w-8 h-8 rounded-lg bg-white shadow-sm flex items-center justify-center text-gray-400 text-xs border"><i class="fa-solid fa-video"></i></div><div><p class="font-bold text-sm">${t.client}</p><p class="text-[10px] font-bold uppercase text-gray-400 mt-0.5">${t.type}</p></div></div><div class="w-8 h-8 rounded-full bg-white flex items-center justify-center shadow-sm text-brand-500 border"><i class="fa-solid fa-chevron-right text-xs"></i></div></div>`).join('') : `<p class="text-sm text-gray-400 italic px-2 py-4">No critical deadlines for today.</p>`;
+        const curM = getTodayStr().substring(0,7);
+        const prevM = getPrevMonthStr();
         
+        let curTasks = 0; let prevTasks = 0;
+        compTasks.forEach(t => {
+            if(t.completed && t.completed.startsWith(curM)) curTasks++;
+            if(t.completed && t.completed.startsWith(prevM)) prevTasks++;
+        });
+
+        destroyChart('editorPerf');
+        const ctxP = document.getElementById('editor-perf-chart').getContext('2d');
+        activeChartInstances['editorPerf'] = new Chart(ctxP, {
+            type: 'bar',
+            data: {
+                labels: ['Last Month', 'Current Month'],
+                datasets: [{ label: 'Tasks Completed', data: [prevTasks, curTasks], backgroundColor: '#e55a3c', borderRadius: 6 }]
+            },
+            options: {
+                responsive: true, maintainAspectRatio: false,
+                scales: { 
+                    y: { beginAtZero: true, grid: {color: getGridColor()}, ticks: {color: getTextColor(), stepSize:1, font: {weight: 'bold'}} },
+                    x: { grid: {display: false}, ticks: {color: getTextColor(), font: {weight: 'bold'}} }
+                },
+                plugins: { legend: { display: false } }
+            }
+        });
+
+        const todayStr = getTodayStr();
+        const todaysTasks = myTasks.filter(t => t.deadline === todayStr && t.status !== 'Completed');
+        const todayList = document.getElementById('home-today-list');
+        if(todaysTasks.length > 0) {
+            todayList.innerHTML = todaysTasks.map(t => `
+                <div class="flex justify-between items-center bg-gray-50 dark:bg-dark-surface p-4 rounded-2xl border border-gray-100 dark:border-dark-border cursor-pointer hover:border-brand-200 transition" onclick="openStatusModal('${t.id}', '${t.type}')">
+                    <div class="flex items-center gap-3">
+                        <div class="w-8 h-8 rounded-lg bg-white dark:bg-dark-card shadow-sm flex items-center justify-center text-gray-400 text-xs border border-gray-100 dark:border-dark-border"><i class="fa-solid fa-video"></i></div>
+                        <div>
+                            <p class="font-bold text-sm leading-tight text-gray-900 dark:text-white">${t.client}</p>
+                            <p class="text-[10px] font-bold uppercase tracking-wider text-gray-400 mt-0.5">${t.type}</p>
+                        </div>
+                    </div>
+                    <div class="w-8 h-8 rounded-full bg-white dark:bg-dark-card flex items-center justify-center shadow-sm text-brand-500 border border-gray-100 dark:border-dark-border"><i class="fa-solid fa-chevron-right text-xs"></i></div>
+                </div>
+            `).join('');
+        } else {
+            todayList.innerHTML = `<p class="text-sm text-gray-400 italic px-2 py-4">No critical deadlines for today.</p>`;
+        }
+        
+        const settlementList = document.getElementById('home-settlement-list');
         const paidTasks = compTasks.filter(t => (t.paidAmount || 0) > 0).sort((a,b) => new Date(b.paidDate || 0) - new Date(a.paidDate || 0));
-        document.getElementById('home-settlement-list').innerHTML = paidTasks.length > 0 ? paidTasks.slice(0, 3).map(t => `<div class="flex justify-between items-center bg-gray-50 p-3 rounded-xl border border-gray-100"><div><p class="font-bold text-xs">${t.client}</p><p class="text-[10px] text-green-500 font-bold uppercase mt-0.5"><i class="fa-solid fa-check-double"></i> Settled ${formatINR(t.paidAmount)}</p></div><span class="text-xs font-black text-gray-400">${t.paidDate ? t.paidDate : ''}</span></div>`).join('') : `<p class="text-sm text-gray-400 italic px-2 py-4">No recent settlements.</p>`;
+        if (paidTasks.length > 0) {
+            settlementList.innerHTML = paidTasks.slice(0, 3).map(t => `
+                <div class="flex justify-between items-center bg-gray-50 dark:bg-dark-surface p-3 rounded-xl border border-gray-100 dark:border-dark-border">
+                    <div>
+                        <p class="font-bold text-xs text-gray-900 dark:text-white">${t.client}</p>
+                        <p class="text-[10px] text-green-500 font-bold uppercase tracking-wider mt-0.5"><i class="fa-solid fa-check-double"></i> Settled ${formatINR(t.paidAmount)}</p>
+                    </div>
+                    <span class="text-xs font-black text-gray-400">${t.paidDate ? t.paidDate : ''}</span>
+                </div>
+            `).join('');
+        } else {
+            settlementList.innerHTML = `<p class="text-sm text-gray-400 italic px-2 py-4">No recent settlements.</p>`;
+        }
     }
 
+    /* =====================================================================
+       4. ADMINISTRATIVE TABS & FINANCE MATRIX
+       ===================================================================== */
     function switchAdminTab(tabId) {
         document.querySelectorAll('.admin-tab').forEach(el => el.classList.remove('active', 'border-brand-500', 'text-brand-500'));
         document.querySelectorAll('.admin-tab').forEach(el => el.classList.add('text-gray-500'));
-        const activeTab = document.getElementById(`tab-${tabId}`); activeTab.classList.add('active', 'border-brand-500', 'text-brand-500'); activeTab.classList.remove('text-gray-500');
-        ['overview', 'editor-analysis', 'payouts', 'monthly-data', 'clients', 'settings'].forEach(v => { const el = document.getElementById(`admin-sub-${v}`); if(el) { el.classList.add('hidden'); el.classList.remove('block'); } });
-        const targetView = document.getElementById(`admin-sub-${tabId}`); if(targetView) { targetView.classList.remove('hidden'); targetView.classList.add('block'); }
-        if(tabId === 'overview') renderAdminOverview(); if(tabId === 'editor-analysis') renderEditorAnalysis(); if(tabId === 'payouts') renderTotalPayouts(); if(tabId === 'monthly-data') renderMonthlyAnalytics(); if(tabId === 'clients') renderClientStatus(); if(tabId === 'settings') renderAdminSettings();
+        
+        const activeTab = document.getElementById(`tab-${tabId}`);
+        activeTab.classList.add('active', 'border-brand-500', 'text-brand-500');
+        activeTab.classList.remove('text-gray-500');
+
+        ['overview', 'editor-analysis', 'clients'].forEach(v => {
+            const el = document.getElementById(`admin-sub-${v}`);
+            if(el) { el.classList.add('hidden'); el.classList.remove('block'); }
+        });
+        
+        const targetView = document.getElementById(`admin-sub-${tabId}`);
+        if(targetView) { targetView.classList.remove('hidden'); targetView.classList.add('block'); }
+
+        if(tabId === 'overview') renderAdminOverview();
+        if(tabId === 'editor-analysis') renderEditorAnalysis();
+        if(tabId === 'clients') renderClientStatus();
+    }
+
+    function switchFinanceTab(tabId) {
+        document.querySelectorAll('.finance-tab').forEach(el => el.classList.remove('active', 'border-b-2', 'border-brand-500', 'text-brand-500'));
+        document.querySelectorAll('.finance-tab').forEach(el => el.classList.add('text-gray-500'));
+        
+        const activeTab = document.getElementById(`finance-tab-${tabId}`);
+        activeTab.classList.add('active', 'border-b-2', 'border-brand-500', 'text-brand-500');
+        activeTab.classList.remove('text-gray-500');
+
+        ['payouts', 'monthly', 'settings'].forEach(v => {
+            const el = document.getElementById(`finance-sub-${v}`);
+            if(el) { el.classList.add('hidden'); el.classList.remove('block'); el.classList.remove('grid'); }
+        });
+        
+        const targetView = document.getElementById(`finance-sub-${tabId}`);
+        if(targetView) { 
+            targetView.classList.remove('hidden'); 
+            if(tabId === 'settings') targetView.classList.add('grid');
+            else targetView.classList.add('block');
+        }
+
+        if(tabId === 'payouts') renderTotalPayouts();
+        if(tabId === 'monthly') renderMonthlyAnalytics();
+        if(tabId === 'settings') renderAdminSettings();
     }
 
     function renderAdminOverview() {
-        const total = appState.deliverables.length; const working = appState.deliverables.filter(d => d.status === 'Working' || d.status === 'Not Started').length; const reviewing = appState.deliverables.filter(d => d.status === 'Internal Review' || d.status === 'Client Review').length; const completed = appState.deliverables.filter(d => d.status === 'Completed').length;
-        document.getElementById('admin-kpi-container').innerHTML = `${kpiCard('Total Active & Past', total, 'fa-box', 'text-gray-500')} ${kpiCard('In Production', working, 'fa-hammer', 'text-brand-500')} ${kpiCard('In Review Cycle', reviewing, 'fa-magnifying-glass', 'text-purple-500')} ${kpiCard('Fully Completed', completed, 'fa-check-double', 'text-green-500')}`;
+        const total = appState.deliverables.length;
+        const working = appState.deliverables.filter(d => d.status === 'Working' || d.status === 'Not Started').length;
+        const reviewing = appState.deliverables.filter(d => d.status === 'Internal Review' || d.status === 'Client Review').length;
+        const completed = appState.deliverables.filter(d => d.status === 'Completed').length;
 
-        destroyChart('adminPipeline'); const ctx = document.getElementById('admin-pipeline-chart').getContext('2d');
-        activeChartInstances['adminPipeline'] = new Chart(ctx, { type: 'bar', data: { labels: ['Not Started', 'Working', 'Internal Review', 'Client Review', 'Completed'], datasets: [{ label: 'Volume', data: [appState.deliverables.filter(d=>d.status==='Not Started').length, appState.deliverables.filter(d=>d.status==='Working').length, appState.deliverables.filter(d=>d.status==='Internal Review').length, appState.deliverables.filter(d=>d.status==='Client Review').length, appState.deliverables.filter(d=>d.status==='Completed').length], backgroundColor: '#ff6b4a', borderRadius: 8 }] }, options: { responsive: true, maintainAspectRatio: false, scales: { y: { beginAtZero: true, grid: {color: getGridColor()}, ticks: {color: getTextColor(), font: {weight: 'bold'}} }, x: { grid: {display: false}, ticks: {color: getTextColor(), font: {weight: 'bold'}} } }, plugins: { legend: { display: false } } } });
+        document.getElementById('admin-kpi-container').innerHTML = `
+            ${kpiCard('Total Active & Past', total, 'fa-box', 'text-gray-500')}
+            ${kpiCard('In Production', working, 'fa-hammer', 'text-brand-500')}
+            ${kpiCard('In Review Cycle', reviewing, 'fa-magnifying-glass', 'text-purple-500')}
+            ${kpiCard('Fully Completed', completed, 'fa-check-double', 'text-green-500')}
+        `;
+
+        destroyChart('adminPipeline');
+        const ctx = document.getElementById('admin-pipeline-chart').getContext('2d');
+        activeChartInstances['adminPipeline'] = new Chart(ctx, {
+            type: 'bar',
+            data: {
+                labels: ['Not Started', 'Working', 'Internal Review', 'Client Review', 'Completed'],
+                datasets: [{
+                    label: 'Volume of Deliverables',
+                    data: [
+                        appState.deliverables.filter(d=>d.status==='Not Started').length,
+                        appState.deliverables.filter(d=>d.status==='Working').length,
+                        appState.deliverables.filter(d=>d.status==='Internal Review').length,
+                        appState.deliverables.filter(d=>d.status==='Client Review').length,
+                        appState.deliverables.filter(d=>d.status==='Completed').length
+                    ],
+                    backgroundColor: '#ff6b4a',
+                    borderRadius: 8
+                }]
+            },
+            options: {
+                responsive: true, maintainAspectRatio: false,
+                scales: { 
+                    y: { beginAtZero: true, grid: {color: getGridColor()}, ticks: {color: getTextColor(), font: {weight: 'bold'}} },
+                    x: { grid: {display: false}, ticks: {color: getTextColor(), font: {weight: 'bold'}} }
+                },
+                plugins: { legend: { display: false } }
+            }
+        });
     }
 
     function renderEditorAnalysis() {
         const select = document.getElementById('analysis-editor-select');
-        if(select.options.length === 0) appState.editors.forEach(e => select.innerHTML += `<option value="${e}">${e}</option>`);
-        const selectedEd = select.value; const edTasks = appState.deliverables.filter(d => d.editor === selectedEd); const compTasks = edTasks.filter(d => d.status === 'Completed');
+        if(select.options.length === 0) {
+            appState.editors.forEach(e => select.innerHTML += `<option value="${e}">${e}</option>`);
+        }
+        const selectedEd = select.value;
+        const edTasks = appState.deliverables.filter(d => d.editor === selectedEd);
+        const compTasks = edTasks.filter(d => d.status === 'Completed');
         
-        let pendingEarnings = 0; compTasks.forEach(t => { const val = t.overrideRate !== null ? Number(t.overrideRate) : appState.rates[t.type]; pendingEarnings += (val - (t.paidAmount || 0)); });
-        let totalDays = 0, tatCount = 0; compTasks.forEach(t => { if(t.created && t.completed) { const d1 = new Date(t.created); const d2 = new Date(t.completed); totalDays += Math.max(1, (d2-d1)/(1000*60*60*24)); tatCount++; } });
-        const avgTat = tatCount > 0 ? Math.round(totalDays/tatCount) + ' Days' : 'N/A'; const activeCount = edTasks.length - compTasks.length;
-        document.getElementById('editor-specific-kpis').innerHTML = `<div class="col-span-2 bg-brand-50 p-5 rounded-3xl border border-brand-200 flex flex-col justify-center"><p class="text-xs uppercase font-bold text-brand-500 mb-2">Pending Liability</p><p class="text-4xl font-extrabold text-brand-600">${formatINR(pendingEarnings)}</p></div> ${kpiCard('Avg Turnaround', avgTat, 'fa-stopwatch', 'text-purple-500')} ${kpiCard('Active Pipeline', activeCount, 'fa-bars-progress', 'text-amber-500')}`;
+        let pendingEarnings = 0;
+        compTasks.forEach(t => {
+            const val = t.overrideRate !== null ? Number(t.overrideRate) : appState.rates[t.type];
+            pendingEarnings += (val - (t.paidAmount || 0));
+        });
+        
+        let totalDays = 0, tatCount = 0;
+        compTasks.forEach(t => {
+            if(t.created && t.completed) {
+                const d1 = new Date(t.created); const d2 = new Date(t.completed);
+                totalDays += Math.max(1, (d2-d1)/(1000*60*60*24));
+                tatCount++;
+            }
+        });
+        const avgTat = tatCount > 0 ? Math.round(totalDays/tatCount) + ' Days' : 'N/A';
+        const activeCount = edTasks.length - compTasks.length;
 
-        const typeCounts = {}; compTasks.forEach(t => typeCounts[t.type] = (typeCounts[t.type] || 0) + 1);
-        destroyChart('editorSpecific'); const ctx = document.getElementById('editor-specific-chart').getContext('2d'); activeChartInstances['editorSpecific'] = new Chart(ctx, { type: 'polarArea', data: { labels: Object.keys(typeCounts), datasets: [{ data: Object.values(typeCounts), backgroundColor: ['#ff6b4aCC', '#333333CC', '#e55a3cCC', '#888888CC'] }] }, options: { responsive: true, maintainAspectRatio: false, scales: { r: { grid: {color: getGridColor()}, ticks: {display: false} } }, plugins: { legend: { position: 'right', labels: {color: getTextColor(), font: {weight: 'bold'}} } } } });
+        document.getElementById('editor-specific-kpis').innerHTML = `
+            <div class="col-span-2 bg-brand-50 dark:bg-brand-900/10 p-5 rounded-3xl border border-brand-200 dark:border-brand-900/30 flex flex-col justify-center">
+                <p class="text-xs uppercase font-bold text-brand-500 mb-2">Pending Liability</p>
+                <p class="text-4xl font-extrabold text-brand-600 dark:text-brand-400">${formatINR(pendingEarnings)}</p>
+            </div>
+            ${kpiCard('Avg Turnaround', avgTat, 'fa-stopwatch', 'text-purple-500')}
+            ${kpiCard('Active Pipeline', activeCount, 'fa-bars-progress', 'text-amber-500')}
+        `;
+
+        const typeCounts = {};
+        compTasks.forEach(t => typeCounts[t.type] = (typeCounts[t.type] || 0) + 1);
+
+        destroyChart('editorSpecific');
+        const ctx = document.getElementById('editor-specific-chart').getContext('2d');
+        activeChartInstances['editorSpecific'] = new Chart(ctx, {
+            type: 'polarArea',
+            data: {
+                labels: Object.keys(typeCounts),
+                datasets: [{ data: Object.values(typeCounts), backgroundColor: ['#ff6b4aCC', '#333333CC', '#e55a3cCC', '#888888CC'] }]
+            },
+            options: {
+                responsive: true, maintainAspectRatio: false,
+                scales: { r: { grid: {color: getGridColor()}, ticks: {display: false} } },
+                plugins: { legend: { position: 'right', labels: {color: getTextColor(), font: {weight: 'bold'}} } }
+            }
+        });
     }
 
     function renderTotalPayouts() {
+        const list = document.getElementById('total-payouts-list');
         const filterVal = document.getElementById('payout-time-filter') ? document.getElementById('payout-time-filter').value : 'all';
-        const currentMonth = getTodayStr().substring(0, 7); let html = ''; let grandTotalPending = 0;
+        const currentMonth = getTodayStr().substring(0, 7); 
+        
+        let html = '';
+        let grandTotalPending = 0;
+
         appState.editors.forEach(ed => {
             let edTasks = appState.deliverables.filter(d => d.editor === ed && d.status === 'Completed');
             if(filterVal === 'current') edTasks = edTasks.filter(d => d.completed && d.completed.startsWith(currentMonth));
+
             let edPending = 0; let edLifetime = 0;
-            edTasks.forEach(t => { const amt = t.overrideRate !== null ? Number(t.overrideRate) : appState.rates[t.type]; edLifetime += (t.paidAmount || 0); edPending += (amt - (t.paidAmount || 0)); });
+            edTasks.forEach(t => {
+                const amt = t.overrideRate !== null ? Number(t.overrideRate) : appState.rates[t.type];
+                edLifetime += (t.paidAmount || 0);
+                edPending += (amt - (t.paidAmount || 0));
+            });
             grandTotalPending += edPending;
-            const btnHTML = edPending > 0 ? `<button onclick="openPaymentModal('${ed}', ${edPending})" class="h-10 px-4 bg-gray-900 text-white rounded-xl text-xs font-bold transition hover:shadow-lg">Pay Editor</button>` : `<span class="text-xs font-bold text-green-500 uppercase tracking-widest"><i class="fa-solid fa-check"></i> Settled</span>`;
-            html += `<div class="flex flex-col sm:flex-row justify-between items-start sm:items-center bg-gray-50 p-5 rounded-2xl border ${edPending > 0 ? 'border-brand-200' : 'border-gray-200'} transition hover:border-brand-500"><div><p class="font-bold text-lg mb-1">${ed}</p><p class="text-[10px] text-gray-500 font-bold uppercase">${edTasks.length} Projects (Life: ${formatINR(edLifetime)})</p></div><div class="flex items-center gap-6 mt-4 sm:mt-0 w-full sm:w-auto justify-between sm:justify-end border-t sm:border-0 border-gray-200 pt-3 sm:pt-0"><div class="text-right"><div class="text-2xl font-extrabold ${edPending > 0 ? 'text-brand-500' : 'text-gray-400'}">${formatINR(edPending)}</div><div class="text-[9px] text-gray-400 font-bold uppercase">Active Liability</div></div>${btnHTML}</div></div>`;
+            
+            const btnHTML = edPending > 0 ? `<button onclick="openPaymentModal('${ed}', ${edPending})" class="h-10 px-4 bg-gray-900 text-white dark:bg-white dark:text-black rounded-xl text-xs font-bold transition hover:shadow-lg hover:-translate-y-0.5">Pay Editor</button>` : `<span class="text-xs font-bold text-green-500 uppercase tracking-widest"><i class="fa-solid fa-check"></i> Settled</span>`;
+
+            html += `
+                <div class="flex flex-col sm:flex-row justify-between items-start sm:items-center bg-gray-50 dark:bg-dark-surface p-5 rounded-2xl border ${edPending > 0 ? 'border-brand-200 dark:border-brand-900/50' : 'border-gray-200 dark:border-dark-border'} transition hover:border-brand-500">
+                    <div>
+                        <p class="font-bold text-lg text-gray-900 dark:text-white mb-1">${ed}</p>
+                        <p class="text-[10px] text-gray-500 font-bold uppercase tracking-widest">${edTasks.length} Completed Projects (Lifetime: ${formatINR(edLifetime)})</p>
+                    </div>
+                    <div class="flex items-center gap-6 mt-4 sm:mt-0 w-full sm:w-auto justify-between sm:justify-end border-t sm:border-0 border-gray-200 dark:border-dark-border pt-3 sm:pt-0">
+                        <div class="text-right">
+                            <div class="text-2xl font-extrabold ${edPending > 0 ? 'text-brand-500 dark:text-brand-400' : 'text-gray-400'}">${formatINR(edPending)}</div>
+                            <div class="text-[9px] text-gray-400 font-bold uppercase tracking-widest">Active Liability</div>
+                        </div>
+                        ${btnHTML}
+                    </div>
+                </div>
+            `;
         });
-        document.getElementById('total-payouts-list').innerHTML = html + `<div class="mt-8 pt-6 border-t border-dashed border-gray-300 flex justify-between items-center bg-gray-50 p-6 rounded-3xl"><p class="text-xs font-bold text-gray-500 uppercase tracking-widest">Global Payout Liability</p><p class="text-3xl sm:text-4xl font-black">${formatINR(grandTotalPending)}</p></div>`;
+
+        html += `
+            <div class="mt-8 pt-6 border-t border-dashed border-gray-300 dark:border-gray-600 flex justify-between items-center bg-gray-50 dark:bg-dark-surface p-6 rounded-3xl">
+                <p class="text-xs font-bold text-gray-500 uppercase tracking-widest">Global Payout Liability</p>
+                <p class="text-3xl sm:text-4xl font-black text-gray-900 dark:text-white">${formatINR(grandTotalPending)}</p>
+            </div>
+        `;
+        list.innerHTML = html;
+
+        const ledgerBody = document.getElementById('transaction-ledger-body');
+        const sortedTx = [...appState.transactions].sort((a,b) => new Date(b.date+'T'+b.time) - new Date(a.date+'T'+a.time));
+        
+        ledgerBody.innerHTML = sortedTx.length > 0 ? sortedTx.map(tx => `
+            <tr class="hover:bg-gray-50 dark:hover:bg-dark-surface transition">
+                <td class="py-3 pr-4 text-xs"><span class="text-gray-900 dark:text-white font-bold">${tx.date}</span> <span class="text-gray-400 ml-1">${tx.time}</span></td>
+                <td class="py-3 px-4 text-gray-700 dark:text-gray-300">${tx.editor}</td>
+                <td class="py-3 pl-4 text-right text-green-500 font-bold">${formatINR(tx.amount)}</td>
+            </tr>
+        `).join('') : `<tr><td colspan="3" class="py-4 text-center text-sm text-gray-400 italic">No transactions recorded.</td></tr>`;
+
+        const curM = getTodayStr().substring(0,7);
+        const prevM = getPrevMonthStr();
+        
+        let incCur = [], incPrev = [], perfCur = [], perfPrev = [];
+        
+        appState.editors.forEach(ed => {
+            let eIncC = 0, eIncP = 0, ePerfC = 0, ePerfP = 0;
+            const edTasks = appState.deliverables.filter(d => d.editor === ed && d.status === 'Completed');
+            
+            edTasks.forEach(t => {
+                const val = t.overrideRate !== null ? Number(t.overrideRate) : appState.rates[t.type];
+                if(t.completed && t.completed.startsWith(curM)) { eIncC += val; ePerfC++; }
+                if(t.completed && t.completed.startsWith(prevM)) { eIncP += val; ePerfP++; }
+            });
+            incCur.push(eIncC); incPrev.push(eIncP);
+            perfCur.push(ePerfC); perfPrev.push(ePerfP);
+        });
+
+        destroyChart('finIncome');
+        const ctxInc = document.getElementById('finance-income-chart').getContext('2d');
+        activeChartInstances['finIncome'] = new Chart(ctxInc, {
+            type: 'bar',
+            data: {
+                labels: appState.editors,
+                datasets: [
+                    { label: 'Last Month', data: incPrev, backgroundColor: '#888888', borderRadius: 4 },
+                    { label: 'This Month', data: incCur, backgroundColor: '#10b981', borderRadius: 4 }
+                ]
+            },
+            options: { responsive: true, maintainAspectRatio: false, scales: { y: { beginAtZero: true, grid: {color: getGridColor()}, ticks: {color: getTextColor(), font: {weight: 'bold'}} }, x: { grid: {display: false}, ticks: {color: getTextColor(), font: {weight: 'bold'}} } }, plugins: { legend: { labels: {color: getTextColor()} } } }
+        });
+
+        destroyChart('finPerf');
+        const ctxPerf = document.getElementById('finance-perf-chart').getContext('2d');
+        activeChartInstances['finPerf'] = new Chart(ctxPerf, {
+            type: 'bar',
+            data: {
+                labels: appState.editors,
+                datasets: [
+                    { label: 'Last Month', data: perfPrev, backgroundColor: '#888888', borderRadius: 4 },
+                    { label: 'This Month', data: perfCur, backgroundColor: '#e55a3c', borderRadius: 4 }
+                ]
+            },
+            options: { responsive: true, maintainAspectRatio: false, scales: { y: { beginAtZero: true, grid: {color: getGridColor()}, ticks: {color: getTextColor(), stepSize:1, font: {weight: 'bold'}} }, x: { grid: {display: false}, ticks: {color: getTextColor(), font: {weight: 'bold'}} } }, plugins: { legend: { labels: {color: getTextColor()} } } }
+        });
     }
     
-    function openPaymentModal(editorName, pendingAmount) { document.getElementById('payment-editor-name').innerText = `To: ${editorName}`; document.getElementById('payment-pending-amt').innerText = formatINR(pendingAmount); document.getElementById('payment-amount').value = pendingAmount; document.getElementById('payment-editor-id').value = editorName; openModal('modal-payment'); }
-    function submitPayment() {
-        const editor = document.getElementById('payment-editor-id').value; const amount = Number(document.getElementById('payment-amount').value); if(amount <= 0) return;
-        let remaining = amount; let tasks = appState.deliverables.filter(d => d.editor === editor && d.status === 'Completed').sort((a,b) => new Date(a.completed) - new Date(b.completed));
+    function openPaymentModal(editorName, pendingAmount) {
+        document.getElementById('payment-editor-name').innerText = `To: ${editorName}`;
+        document.getElementById('payment-pending-amt').innerText = formatINR(pendingAmount);
+        document.getElementById('payment-amount').value = pendingAmount; 
+        document.getElementById('payment-editor-id').value = editorName;
+        openModal('modal-payment');
+    }
+
+    async function submitPayment() {
+        const editor = document.getElementById('payment-editor-id').value;
+        const amount = Number(document.getElementById('payment-amount').value);
+        if(amount <= 0) return;
+
+        let remaining = amount;
+        let tasks = appState.deliverables.filter(d => d.editor === editor && d.status === 'Completed');
+        tasks.sort((a,b) => new Date(a.completed) - new Date(b.completed));
+
         tasks.forEach(t => {
             if(remaining <= 0) return;
-            const taskTotal = t.overrideRate !== null ? Number(t.overrideRate) : appState.rates[t.type]; const taskPending = taskTotal - (t.paidAmount || 0);
-            if(taskPending > 0) { if(remaining >= taskPending) { t.paidAmount = (t.paidAmount || 0) + taskPending; t.paidDate = getTodayStr(); remaining -= taskPending; } else { t.paidAmount = (t.paidAmount || 0) + remaining; t.paidDate = getTodayStr(); remaining = 0; } }
+            const taskTotal = t.overrideRate !== null ? Number(t.overrideRate) : appState.rates[t.type];
+            const taskPending = taskTotal - (t.paidAmount || 0);
+
+            if(taskPending > 0) {
+                if(remaining >= taskPending) {
+                    t.paidAmount = (t.paidAmount || 0) + taskPending;
+                    t.paidDate = getTodayStr();
+                    remaining -= taskPending;
+                } else {
+                    t.paidAmount = (t.paidAmount || 0) + remaining;
+                    t.paidDate = getTodayStr();
+                    remaining = 0;
+                }
+            }
         });
-        if(!appState.notifications) appState.notifications = {}; if(!appState.notifications[editor]) appState.notifications[editor] = []; appState.notifications[editor].push(`The studio administrator processed a payment of ${formatINR(amount)} to your account.`);
-        saveState(); closeModal('modal-payment'); renderTotalPayouts();
+
+        appState.transactions.push({
+            id: Date.now().toString(),
+            date: getTodayStr(),
+            time: new Date().toLocaleTimeString('en-US', { hour12: false }),
+            editor: editor,
+            amount: amount
+        });
+
+        if(!appState.notifications) appState.notifications = {};
+        if(!appState.notifications[editor]) appState.notifications[editor] = [];
+        appState.notifications[editor].push(`The studio administrator has processed a payment of ${formatINR(amount)} to your account.`);
+
+        await saveState();
+        closeModal('modal-payment');
+        renderTotalPayouts();
+        showToast("Payment recorded successfully");
     }
 
     function renderMonthlyAnalytics() {
-        const input = document.getElementById('monthly-filter-input'); if(!input.value) { const d = new Date(); input.value = `${d.getFullYear()}-${String(d.getMonth() + 1).padStart(2, '0')}`; }
-        const currentMonthVal = input.value; const monthlyTasks = appState.deliverables.filter(t => { const cDate = t.completed ? t.completed.substring(0,7) : null; const crDate = t.created ? t.created.substring(0,7) : null; return cDate === currentMonthVal || crDate === currentMonthVal; });
-        const completedThisMonth = monthlyTasks.filter(t => t.completed && t.completed.substring(0,7) === currentMonthVal); let monthPayout = 0; completedThisMonth.forEach(t => monthPayout += t.overrideRate !== null ? Number(t.overrideRate) : appState.rates[t.type]);
-        document.getElementById('monthly-specific-kpis').innerHTML = `${kpiCard('Active This Month', monthlyTasks.length, 'fa-chart-pie', 'text-gray-500')} ${kpiCard('Completed This Month', completedThisMonth.length, 'fa-check', 'text-green-500')} <div class="bg-gray-50 rounded-3xl p-5 border border-gray-200 flex flex-col justify-center"><div class="text-xs text-gray-500 font-bold uppercase mb-2">Total Monthly Payout</div><div class="text-3xl font-extrabold text-green-500">${formatINR(monthPayout)}</div></div>`;
-        const editorOutput = {}; appState.editors.forEach(e => editorOutput[e] = 0); completedThisMonth.forEach(t => { if(editorOutput[t.editor] !== undefined) editorOutput[t.editor]++; });
-        destroyChart('monthlyVolume'); const ctx = document.getElementById('monthly-volume-chart').getContext('2d'); activeChartInstances['monthlyVolume'] = new Chart(ctx, { type: 'bar', data: { labels: Object.keys(editorOutput), datasets: [{ label: 'Projects Delivered', data: Object.values(editorOutput), backgroundColor: '#e55a3c', borderRadius: 6 }] }, options: { responsive: true, maintainAspectRatio: false, scales: { y: { beginAtZero: true, grid: {color: getGridColor()}, ticks: {color: getTextColor(), stepSize: 1, font: {weight: 'bold'}} }, x: { grid: {display: false}, ticks: {color: getTextColor(), font: {weight: 'bold'}} } }, plugins: { legend: { display: false } } } });
+        const input = document.getElementById('monthly-filter-input');
+        if(!input.value) {
+            const d = new Date();
+            input.value = `${d.getFullYear()}-${String(d.getMonth() + 1).padStart(2, '0')}`;
+        }
+        const currentMonthVal = input.value;
+        
+        const monthlyTasks = appState.deliverables.filter(t => {
+            const cDate = t.completed ? t.completed.substring(0,7) : null;
+            const crDate = t.created ? t.created.substring(0,7) : null;
+            return cDate === currentMonthVal || crDate === currentMonthVal;
+        });
+
+        const completedThisMonth = monthlyTasks.filter(t => t.completed && t.completed.substring(0,7) === currentMonthVal);
+        
+        let monthPayout = 0;
+        completedThisMonth.forEach(t => monthPayout += t.overrideRate !== null ? Number(t.overrideRate) : appState.rates[t.type]);
+
+        document.getElementById('monthly-specific-kpis').innerHTML = `
+            ${kpiCard('Active This Month', monthlyTasks.length, 'fa-chart-pie', 'text-gray-500')}
+            ${kpiCard('Completed This Month', completedThisMonth.length, 'fa-check', 'text-green-500')}
+            <div class="bg-gray-50 dark:bg-dark-surface rounded-3xl p-5 border border-gray-200 dark:border-dark-border flex flex-col justify-center">
+                <div class="text-xs text-gray-500 font-bold uppercase tracking-wider mb-2">Total Monthly Payout</div>
+                <div class="text-3xl font-extrabold text-green-500">${formatINR(monthPayout)}</div>
+            </div>
+        `;
+
+        const editorOutput = {};
+        appState.editors.forEach(e => editorOutput[e] = 0);
+        completedThisMonth.forEach(t => { if(editorOutput[t.editor] !== undefined) editorOutput[t.editor]++; });
+
+        destroyChart('monthlyVolume');
+        const ctx = document.getElementById('monthly-volume-chart').getContext('2d');
+        activeChartInstances['monthlyVolume'] = new Chart(ctx, {
+            type: 'bar',
+            data: {
+                labels: Object.keys(editorOutput),
+                datasets: [{ label: 'Projects Delivered', data: Object.values(editorOutput), backgroundColor: '#e55a3c', borderRadius: 6 }]
+            },
+            options: { responsive: true, maintainAspectRatio: false, scales: { y: { beginAtZero: true, grid: {color: getGridColor()}, ticks: {color: getTextColor(), stepSize: 1, font: {weight: 'bold'}} }, x: { grid: {display: false}, ticks: {color: getTextColor(), font: {weight: 'bold'}} } }, plugins: { legend: { display: false } } }
+        });
     }
 
     function renderClientStatus() {
-        const select = document.getElementById('client-status-select'); const clients = [...new Set(appState.deliverables.map(d => d.client))];
-        if (select.options.length !== clients.length + 1) { select.innerHTML = `<option value="" disabled selected>Choose a client...</option>`; clients.forEach(c => select.innerHTML += `<option value="${c}">${c}</option>`); }
-        const selectedClient = select.value; const container = document.getElementById('client-status-container'); if(!selectedClient) { container.innerHTML = ''; return; }
-        const cTasks = appState.deliverables.filter(d => d.client === selectedClient); const comp = cTasks.filter(d => d.status === 'Completed').length; const pct = cTasks.length > 0 ? Math.round((comp / cTasks.length) * 100) : 0;
-        let breakdownHTML = cTasks.map(t => `<div class="flex justify-between items-center border-b border-gray-100 py-2 text-sm"><span><span class="font-bold">${t.type}</span> <span class="text-xs text-gray-400">(${t.editor})</span></span><span class="${t.status === 'Completed' ? 'text-green-500' : 'text-gray-500'} font-bold text-xs uppercase">${t.status}</span></div>`).join('');
-        container.innerHTML = `<div class="bg-gray-50 rounded-2xl p-6 border border-gray-200"><div class="flex justify-between items-end mb-2"><span class="text-sm font-bold">Overall Project Completion</span><span class="text-3xl font-black text-brand-500">${pct}%</span></div><div class="w-full bg-gray-200 rounded-full h-3 mb-6"><div class="bg-brand-500 h-3 rounded-full transition-all duration-1000" style="width: ${pct}%"></div></div><div class="mt-4"><h4 class="text-xs font-bold text-gray-400 uppercase tracking-widest mb-2">Deliverable Breakdown</h4>${breakdownHTML}</div></div>`;
+        const select = document.getElementById('client-status-select');
+        const clients = [...new Set(appState.deliverables.map(d => d.client))];
+        
+        if (select.options.length !== clients.length + 1) {
+            select.innerHTML = `<option value="" disabled selected>Choose a client...</option>`;
+            clients.forEach(c => select.innerHTML += `<option value="${c}">${c}</option>`);
+        }
+
+        const selectedClient = select.value;
+        const container = document.getElementById('client-status-container');
+        if(!selectedClient) { container.innerHTML = ''; return; }
+
+        const cTasks = appState.deliverables.filter(d => d.client === selectedClient);
+        const comp = cTasks.filter(d => d.status === 'Completed').length;
+        const pct = cTasks.length > 0 ? Math.round((comp / cTasks.length) * 100) : 0;
+
+        let breakdownHTML = cTasks.map(t => {
+            let color = t.status === 'Completed' ? 'text-green-500' : 'text-gray-500';
+            return `
+            <div class="flex justify-between items-center border-b border-gray-100 dark:border-dark-border py-2 text-sm">
+                <span><span class="font-bold">${t.type}</span> <span class="text-xs text-gray-400 ml-1">(${t.editor})</span></span>
+                <span class="${color} font-bold text-[10px] uppercase tracking-widest">${t.status}</span>
+            </div>`;
+        }).join('');
+
+        container.innerHTML = `
+            <div class="bg-gray-50 dark:bg-dark-surface rounded-2xl p-6 border border-gray-200 dark:border-dark-border">
+                <div class="flex justify-between items-end mb-2">
+                    <span class="text-sm font-bold">Overall Project Completion</span>
+                    <span class="text-3xl font-black text-brand-500">${pct}%</span>
+                </div>
+                <div class="w-full bg-gray-200 dark:bg-dark-card rounded-full h-3 mb-6">
+                    <div class="bg-brand-500 h-3 rounded-full transition-all duration-1000" style="width: ${pct}%"></div>
+                </div>
+                <div class="mt-4">
+                    <h4 class="text-[10px] font-bold text-gray-400 uppercase tracking-widest mb-2">Deliverable Breakdown</h4>
+                    ${breakdownHTML}
+                </div>
+            </div>
+        `;
     }
 
-    function buildClientSuggestions() { document.getElementById('client-suggestions').innerHTML = [...new Set(appState.deliverables.map(d => d.client))].map(c => `<option value="${c}">`).join(''); }
+    function buildClientSuggestions() {
+        const datalist = document.getElementById('client-suggestions');
+        const idatalist = document.getElementById('issue-client-suggestions');
+        const clients = [...new Set(appState.deliverables.map(d => d.client))];
+        const html = clients.map(c => `<option value="${c}">`).join('');
+        if(datalist) datalist.innerHTML = html;
+        if(idatalist) idatalist.innerHTML = html;
+    }
 
     function renderAdminSettings() {
-        document.getElementById('admin-roster-list').innerHTML = appState.editors.map(e => `<div class="bg-gray-50 border border-gray-200 px-4 py-3 rounded-2xl text-sm font-bold flex items-center justify-between shadow-sm transition hover:border-brand-300"><div class="flex items-center gap-3"><div class="w-8 h-8 rounded-full bg-gray-200 flex items-center justify-center text-xs border border-gray-300 overflow-hidden">${appState.profileImages && appState.profileImages[e] ? `<img src="${appState.profileImages[e]}" class="w-full h-full object-cover">` : e.substring(0,2).toUpperCase()}</div>${e}</div><div class="flex items-center gap-4"><div class="text-[10px] text-gray-400 font-mono tracking-widest flex items-center gap-2"><i class="fa-solid fa-key"></i> ${appState.passwords[e] ? appState.passwords[e] : '<span class="italic opacity-50">Not Set</span>'}</div><button onclick="logInAsEditor('${e}')" class="text-[10px] bg-brand-50 text-brand-500 px-2 py-1 rounded hover:bg-brand-500 hover:text-white transition"><i class="fa-solid fa-eye"></i> View</button></div></div>`).join('');
-        document.getElementById('admin-rate-card-list').innerHTML = Object.entries(appState.rates).map(([type, rate]) => `<div class="flex items-center justify-between bg-gray-50 p-3 rounded-2xl border border-gray-200 transition hover:border-brand-500"><span class="text-sm font-bold uppercase tracking-wide">${type}</span><div class="relative"><span class="absolute left-3 top-1/2 -translate-y-1/2 text-gray-400 font-black text-sm">₹</span><input type="number" id="rate-${type.replace(/\s+/g, '')}" value="${rate}" class="w-32 pl-8 pr-3 py-2 bg-white border border-gray-200 rounded-xl outline-none focus:border-brand-500 font-black text-right transition"></div></div>`).join('');
+        document.getElementById('admin-roster-list').innerHTML = appState.editors.map(e => {
+            const img = appState.profileImages && appState.profileImages[e];
+            const avatar = img ? `<img src="${img}" class="w-full h-full object-cover">` : e.substring(0,2).toUpperCase();
+            
+            return `
+            <div class="bg-gray-50 dark:bg-dark-surface border border-gray-200 dark:border-dark-border px-4 py-3 rounded-2xl text-sm font-bold flex items-center justify-between shadow-sm transition hover:border-brand-300">
+                <div class="flex items-center gap-3">
+                    <div class="w-8 h-8 rounded-full bg-gray-200 dark:bg-dark-card flex items-center justify-center text-xs border border-gray-300 dark:border-dark-border overflow-hidden">${avatar}</div>
+                    ${e}
+                </div>
+                <div class="flex items-center gap-4">
+                    <div class="text-[10px] text-gray-400 font-mono tracking-widest flex items-center gap-2">
+                        <i class="fa-solid fa-key"></i> ${appState.passwords[e] ? appState.passwords[e] : '<span class="italic opacity-50">Not Set</span>'}
+                    </div>
+                    <button onclick="logInAsEditor('${e}')" class="text-[10px] bg-brand-50 text-brand-500 px-2 py-1 rounded hover:bg-brand-500 hover:text-white transition"><i class="fa-solid fa-eye"></i> View</button>
+                </div>
+            </div>
+        `}).join('');
+
+        const rateList = document.getElementById('admin-rate-card-list');
+        rateList.innerHTML = '';
+        Object.entries(appState.rates).forEach(([type, rate]) => {
+            rateList.innerHTML += `
+                <div class="flex items-center justify-between bg-gray-50 dark:bg-dark-surface p-3 rounded-2xl border border-gray-200 dark:border-dark-border transition hover:border-brand-500">
+                    <span class="text-sm font-bold uppercase tracking-wide text-gray-600 dark:text-gray-300">${type}</span>
+                    <div class="relative">
+                        <span class="absolute left-3 top-1/2 -translate-y-1/2 text-gray-400 font-black text-sm">₹</span>
+                        <input type="number" id="rate-${type.replace(/\s+/g, '')}" value="${rate}" class="w-32 pl-8 pr-3 py-2 bg-white dark:bg-dark-card border border-gray-200 dark:border-dark-border rounded-xl outline-none focus:border-brand-500 focus:ring-1 focus:ring-brand-500 font-black text-right transition">
+                    </div>
+                </div>
+            `;
+        });
     }
 
-    function addNewRate() { const name = document.getElementById('new-rate-name').value.trim(); const val = document.getElementById('new-rate-val').value; if(name && val) { appState.rates[name] = Number(val); document.getElementById('new-rate-name').value = ''; document.getElementById('new-rate-val').value = ''; saveState(); buildDropdowns(); renderAdminSettings(); alert(`Added format: ${name}`); } }
+    async function addNewRate() {
+        const name = document.getElementById('new-rate-name').value.trim();
+        const val = document.getElementById('new-rate-val').value;
+        if(name && val) {
+            appState.rates[name] = Number(val);
+            document.getElementById('new-rate-name').value = '';
+            document.getElementById('new-rate-val').value = '';
+            await saveState();
+            buildDropdowns();
+            renderAdminSettings();
+            showToast(`Added format: ${name}`);
+        }
+    }
 
+    /* =====================================================================
+       5. INBOX & TICKETS
+       ===================================================================== */
+    function renderInbox() {
+        const list = document.getElementById('inbox-list');
+        const sorted = [...appState.inbox].sort((a,b) => new Date(b.date) - new Date(a.date));
+        
+        list.innerHTML = sorted.length > 0 ? sorted.map(i => `
+            <div class="bg-white dark:bg-dark-card rounded-3xl p-6 shadow-soft border ${i.resolved ? 'border-gray-100 dark:border-dark-border opacity-60' : 'border-brand-200 dark:border-brand-900/50'} relative transition">
+                <div class="flex justify-between items-start mb-3">
+                    <div class="flex items-center gap-3">
+                        <div class="w-8 h-8 rounded-full bg-gray-200 dark:bg-dark-surface flex items-center justify-center font-bold text-xs">${i.from.substring(0,2).toUpperCase()}</div>
+                        <div>
+                            <p class="font-bold text-sm leading-tight">${i.from}</p>
+                            <p class="text-[10px] text-gray-400 font-bold uppercase tracking-widest">${i.date}</p>
+                        </div>
+                    </div>
+                    ${!i.resolved ? `<button onclick="resolveIssue('${i.id}')" class="px-3 py-1 bg-green-50 text-green-600 dark:bg-green-900/20 rounded-lg text-[10px] font-black uppercase tracking-widest border border-green-200 dark:border-green-800 hover:bg-green-500 hover:text-white transition"><i class="fa-solid fa-check mr-1"></i> Resolve</button>` : `<span class="text-[10px] text-green-500 font-bold uppercase tracking-widest"><i class="fa-solid fa-check-double"></i> Resolved</span>`}
+                </div>
+                <div class="bg-gray-50 dark:bg-dark-surface p-4 rounded-xl border border-gray-100 dark:border-dark-border">
+                    <p class="text-xs font-bold text-brand-500 mb-2"><i class="fa-solid fa-at"></i> ${i.client}</p>
+                    <p class="text-sm text-gray-700 dark:text-gray-300 leading-relaxed">${i.message}</p>
+                </div>
+            </div>
+        `).join('') : `<p class="text-center text-sm text-gray-400 italic py-8">Inbox is empty. No issues reported.</p>`;
+        
+        buildNav();
+    }
+
+    async function resolveIssue(id) {
+        const issue = appState.inbox.find(i => i.id === id);
+        if(issue) {
+            issue.resolved = true;
+            await saveState();
+            renderInbox();
+            showToast("Issue marked as resolved");
+        }
+    }
+
+    /* =====================================================================
+       6. TIMELINE, TASK MANAGEMENT & FILTERING
+       ===================================================================== */
     function filterTasks(status) {
         currentTaskFilter = status;
-        ['All', 'Working', 'Review', 'Completed'].forEach(f => { const btn = document.getElementById(`filter-btn-${f}`); if(!btn) return; if(f === status) { btn.classList.add('bg-gray-900', 'text-white', 'shadow-md'); btn.classList.remove('bg-white', 'text-gray-500'); } else { btn.classList.remove('bg-gray-900', 'text-white', 'shadow-md'); btn.classList.add('bg-white', 'text-gray-500'); } }); renderTasksList();
+        ['All', 'Working', 'Review', 'Completed'].forEach(f => {
+            const btn = document.getElementById(`filter-btn-${f}`);
+            if(!btn) return;
+            if(f === status) {
+                btn.classList.add('bg-gray-900', 'text-white', 'dark:bg-white', 'dark:text-black', 'shadow-md');
+                btn.classList.remove('bg-white', 'text-gray-500');
+            } else {
+                btn.classList.remove('bg-gray-900', 'text-white', 'dark:bg-white', 'dark:text-black', 'shadow-md');
+                btn.classList.add('bg-white', 'text-gray-500');
+            }
+        });
+        renderTasksList();
     }
 
     function renderTasksList() {
-        const list = document.getElementById('tasks-list'); let targetTasks = isAdmin ? appState.deliverables : appState.deliverables.filter(d => d.editor === currentUser);
-        document.getElementById('count-All').innerText = targetTasks.length; document.getElementById('count-Working').innerText = targetTasks.filter(d => d.status === 'Working').length; document.getElementById('count-Review').innerText = targetTasks.filter(d => d.status.includes('Review')).length; document.getElementById('count-Completed').innerText = targetTasks.filter(d => d.status === 'Completed').length;
-        if (currentTaskFilter !== 'All') targetTasks = targetTasks.filter(d => currentTaskFilter === 'Review' ? d.status.includes('Review') : d.status === currentTaskFilter);
-        list.innerHTML = targetTasks.sort((a, b) => new Date(a.deadline) - new Date(b.deadline)).map(task => {
-            const isDone = task.status === 'Completed'; let dotColor = isDone ? 'bg-green-500 border-green-100' : (task.status.includes('Review') ? 'bg-purple-500 border-purple-100' : 'bg-brand-500 border-brand-100');
-            return `<div class="relative pl-6 animate-fade-in"><div class="absolute left-[-6px] top-4 w-4 h-4 rounded-full border-[3px] z-10 ${dotColor} shadow-sm"></div><div class="bg-white rounded-3xl p-5 shadow-soft relative border border-gray-100 transition hover:border-brand-200">${isAdmin ? `<span class="absolute -top-3 -right-2 bg-gray-900 text-white text-[10px] font-black px-3 py-1 rounded-full shadow-md border-2 border-white">${task.editor}</span>` : ''}<div class="flex justify-between items-start mb-4"><div><h4 class="font-black text-base leading-tight mb-1">${task.type} ${(isAdmin && task.overrideRate !== null) ? `<span class="text-[10px] text-brand-500 ml-2 font-black uppercase tracking-wider bg-brand-50 px-2 py-0.5 rounded border border-brand-200"><i class="fa-solid fa-bolt mr-1"></i> Custom Rate</span>` : ''}</h4><span class="text-xs font-bold text-gray-500 uppercase tracking-widest">${task.client}</span></div><div class="px-3 py-1.5 rounded-lg text-[10px] font-black uppercase tracking-widest border ${isDone ? 'bg-green-50 text-green-600 border-green-200' : 'bg-gray-50 text-gray-600 border-gray-200'} shadow-sm">${task.status}</div></div><div class="flex justify-between items-center border-t border-gray-100 pt-4 mt-2"><div class="text-xs font-bold uppercase tracking-wider ${task.deadline < getTodayStr() && !isDone ? 'text-red-500 bg-red-50 px-2 py-1 rounded' : 'text-gray-400'}"><i class="fa-regular fa-calendar-xmark mr-1.5"></i> ${task.deadline}</div>${isAdmin ? `<div class="flex gap-2"><button onclick="openEditTaskModal('${task.id}')" class="w-8 h-8 flex items-center justify-center bg-gray-100 rounded-full text-xs font-bold hover:bg-brand-500 hover:text-white transition"><i class="fa-solid fa-pen"></i></button><button onclick="deleteTask('${task.id}')" class="w-8 h-8 flex items-center justify-center bg-red-50 text-red-500 rounded-full text-xs font-bold hover:bg-red-500 hover:text-white transition"><i class="fa-solid fa-trash"></i></button></div>` : (!isDone ? `<button onclick="openStatusModal('${task.id}', '${task.type}')" class="px-5 py-2 bg-brand-500 text-white rounded-full text-xs font-bold shadow-lg shadow-brand-500/30 hover:bg-brand-600 transition">Update Status</button>` : `<span class="text-green-500 text-xs font-black uppercase tracking-widest"><i class="fa-solid fa-check mr-1"></i> Done</span>`)}</div></div></div>`;
+        const list = document.getElementById('tasks-list');
+        let targetTasks = isAdmin ? appState.deliverables : appState.deliverables.filter(d => d.editor === currentUser);
+        
+        document.getElementById('count-All').innerText = targetTasks.length;
+        document.getElementById('count-Working').innerText = targetTasks.filter(d => d.status === 'Working').length;
+        document.getElementById('count-Review').innerText = targetTasks.filter(d => d.status.includes('Review')).length;
+        document.getElementById('count-Completed').innerText = targetTasks.filter(d => d.status === 'Completed').length;
+
+        if (currentTaskFilter !== 'All') {
+            if(currentTaskFilter === 'Review') {
+                targetTasks = targetTasks.filter(d => d.status.includes('Review'));
+            } else {
+                targetTasks = targetTasks.filter(d => d.status === currentTaskFilter);
+            }
+        }
+        
+        targetTasks.sort((a, b) => new Date(a.deadline) - new Date(b.deadline));
+
+        list.innerHTML = targetTasks.map(task => {
+            const isDone = task.status === 'Completed';
+            
+            const actionBtn = isAdmin 
+                ? `<div class="flex gap-2">
+                     <button onclick="openEditTaskModal('${task.id}')" class="w-8 h-8 flex items-center justify-center bg-gray-100 dark:bg-dark-surface rounded-full text-xs font-bold hover:bg-brand-500 hover:text-white transition shadow-sm border border-gray-200 dark:border-dark-border"><i class="fa-solid fa-pen"></i></button>
+                     <button onclick="deleteTask('${task.id}')" class="w-8 h-8 flex items-center justify-center bg-red-50 dark:bg-red-900/20 text-red-500 rounded-full text-xs font-bold hover:bg-red-500 hover:text-white transition shadow-sm border border-red-100 dark:border-red-900/50"><i class="fa-solid fa-trash"></i></button>
+                   </div>`
+                : (!isDone ? `<button onclick="openStatusModal('${task.id}', '${task.type}')" class="px-5 py-2 bg-brand-500 text-white rounded-full text-xs font-bold shadow-lg shadow-brand-500/30 hover:bg-brand-600 transition">Update Status</button>` : `<span class="text-green-500 text-xs font-black uppercase tracking-widest"><i class="fa-solid fa-check mr-1"></i> Done</span>`);
+
+            const edBadge = isAdmin ? `<span class="absolute -top-3 -right-2 bg-gray-900 dark:bg-white text-white dark:text-black text-[10px] font-black px-3 py-1 rounded-full shadow-md border-2 border-white dark:border-dark-card">${task.editor}</span>` : '';
+            const rateBadge = (isAdmin && task.overrideRate !== null) ? `<span class="text-[10px] text-brand-500 ml-2 font-black uppercase tracking-wider bg-brand-50 dark:bg-brand-900/20 px-2 py-0.5 rounded border border-brand-200 dark:border-brand-900/30"><i class="fa-solid fa-bolt mr-1"></i> Custom Rate</span>` : '';
+
+            let dotColor = 'bg-gray-300 dark:bg-gray-600 border-white dark:border-dark-bg';
+            if(isDone) dotColor = 'bg-green-500 border-green-100 dark:border-green-900';
+            else if(task.status.includes('Review')) dotColor = 'bg-purple-500 border-purple-100 dark:border-purple-900';
+            else if(task.status === 'Working') dotColor = 'bg-brand-500 border-brand-100 dark:border-brand-900';
+
+            return `
+            <div class="relative pl-6 animate-fade-in">
+                <div class="absolute left-[-6px] top-4 w-4 h-4 rounded-full border-[3px] z-10 ${dotColor} shadow-sm"></div>
+                <div class="bg-white dark:bg-dark-card rounded-3xl p-5 shadow-soft relative border border-gray-100 dark:border-dark-border transition hover:border-brand-200 dark:hover:border-brand-900/50">
+                    ${edBadge}
+                    <div class="flex justify-between items-start mb-4">
+                        <div>
+                            <h4 class="font-black text-base text-gray-900 dark:text-white leading-tight mb-1">${task.type} ${rateBadge}</h4>
+                            <span class="text-xs font-bold text-gray-500 uppercase tracking-widest">${task.client}</span>
+                        </div>
+                        <div class="px-3 py-1.5 rounded-lg text-[10px] font-black uppercase tracking-widest border ${isDone ? 'bg-green-50 text-green-600 border-green-200 dark:bg-green-900/20 dark:border-green-800' : 'bg-gray-50 text-gray-600 border-gray-200 dark:bg-dark-surface dark:text-gray-300 dark:border-dark-border'} shadow-sm">${task.status}</div>
+                    </div>
+                    <div class="flex justify-between items-center border-t border-gray-100 dark:border-dark-border pt-4 mt-2">
+                        <div class="text-xs font-bold uppercase tracking-wider ${task.deadline < getTodayStr() && !isDone ? 'text-red-500 bg-red-50 dark:bg-red-900/20 px-2 py-1 rounded' : 'text-gray-400'}"><i class="fa-regular fa-calendar-xmark mr-1.5"></i> ${task.deadline}</div>
+                        ${actionBtn}
+                    </div>
+                </div>
+            </div>
+            `;
         }).join('');
     }
 
     function renderFutureReminders() {
-        const todayStr = getTodayStr(); let targetTasks = isAdmin ? appState.deliverables : appState.deliverables.filter(d => d.editor === currentUser);
-        const upcoming = targetTasks.filter(d => d.deadline > todayStr && d.status !== 'Completed').sort((a,b) => new Date(a.deadline) - new Date(b.deadline)).slice(0,3);
-        if(upcoming.length > 0) { document.getElementById('future-reminders-section').classList.remove('hidden'); document.getElementById('future-reminders-list').innerHTML = upcoming.map(t => `<div class="flex justify-between items-center bg-white rounded-xl p-3 shadow-sm text-xs font-bold border border-brand-100"><span class="truncate mr-2"><span class="text-gray-400 mr-2">${t.client}</span> ${t.type} ${isAdmin ? `<span class="text-[9px] bg-gray-100 px-1.5 py-0.5 rounded ml-1">${t.editor}</span>` : ''}</span><span class="text-brand-500 shrink-0 bg-brand-50 px-2 py-1 rounded">${t.deadline}</span></div>`).join(''); } else { document.getElementById('future-reminders-section').classList.add('hidden'); }
+        const sec = document.getElementById('future-reminders-section');
+        const list = document.getElementById('future-reminders-list');
+        const todayStr = getTodayStr();
+        
+        let targetTasks = isAdmin ? appState.deliverables : appState.deliverables.filter(d => d.editor === currentUser);
+        const upcoming = targetTasks.filter(d => d.deadline > todayStr && d.status !== 'Completed');
+        upcoming.sort((a,b) => new Date(a.deadline) - new Date(b.deadline));
+        
+        const topUpcoming = upcoming.slice(0,3);
+        if(topUpcoming.length > 0) {
+            sec.classList.remove('hidden');
+            list.innerHTML = topUpcoming.map(t => `
+                <div class="flex justify-between items-center bg-white dark:bg-dark-card rounded-xl p-3 shadow-sm text-xs font-bold border border-brand-100 dark:border-brand-900/30">
+                    <span class="text-gray-700 dark:text-gray-300 truncate mr-2">
+                        <span class="text-gray-400 mr-2">${t.client}</span> ${t.type} 
+                        ${isAdmin ? `<span class="text-[9px] bg-gray-100 dark:bg-dark-surface text-gray-500 px-1.5 py-0.5 rounded ml-1 uppercase tracking-widest">${t.editor}</span>` : ''}
+                    </span>
+                    <span class="text-brand-500 shrink-0 bg-brand-50 dark:bg-brand-900/20 px-2 py-1 rounded">${t.deadline}</span>
+                </div>
+            `).join('');
+        } else {
+            sec.classList.add('hidden');
+        }
     }
 
+    /* =====================================================================
+       7. DATA MUTATION AND MODAL LOGIC
+       ===================================================================== */
     function buildDropdowns() {
-        const typeSel = document.getElementById('task-type'); typeSel.innerHTML = ''; Object.keys(appState.rates).forEach(t => typeSel.innerHTML += `<option value="${t}">${t}</option>`);
-        const edSel = document.getElementById('task-editor'); edSel.innerHTML = '<option value="Unassigned">Unassigned</option>'; appState.editors.forEach(e => edSel.innerHTML += `<option value="${e}">${e}</option>`);
+        const typeSel = document.getElementById('task-type');
+        typeSel.innerHTML = '';
+        Object.keys(appState.rates).forEach(t => typeSel.innerHTML += `<option value="${t}">${t}</option>`);
+
+        const edSel = document.getElementById('task-editor');
+        edSel.innerHTML = '<option value="Unassigned">Unassigned</option>';
+        appState.editors.forEach(e => edSel.innerHTML += `<option value="${e}">${e}</option>`);
     }
 
-    function openNewTaskModal() { document.getElementById('form-task').reset(); document.getElementById('task-id').value = ''; document.getElementById('modal-task-title').innerText = 'Add Deliverable'; document.getElementById('manager-task-fields').classList.toggle('hidden', !isAdmin); if(!isAdmin) document.getElementById('task-editor').value = currentUser; openModal('modal-task'); }
-    function openEditTaskModal(id) { if(!isAdmin) return; const task = appState.deliverables.find(d => d.id === id); document.getElementById('task-id').value = task.id; document.getElementById('task-client').value = task.client; document.getElementById('task-type').value = task.type; document.getElementById('task-deadline').value = task.deadline; document.getElementById('task-editor').value = task.editor; document.getElementById('task-status').value = task.status; document.getElementById('task-override').value = task.overrideRate || ''; document.getElementById('modal-task-title').innerText = 'Manage Deliverable Data'; document.getElementById('manager-task-fields').classList.remove('hidden'); openModal('modal-task'); }
+    function openNewTaskModal() {
+        document.getElementById('form-task').reset();
+        document.getElementById('task-id').value = '';
+        document.getElementById('modal-task-title').innerText = 'Add Deliverable';
+        document.getElementById('manager-task-fields').classList.toggle('hidden', !isAdmin);
+        if(!isAdmin) document.getElementById('task-editor').value = currentUser;
+        openModal('modal-task');
+    }
+
+    function openEditTaskModal(id) {
+        if(!isAdmin) return;
+        const task = appState.deliverables.find(d => d.id === id);
+        document.getElementById('task-id').value = task.id;
+        document.getElementById('task-client').value = task.client;
+        document.getElementById('task-type').value = task.type;
+        document.getElementById('task-deadline').value = task.deadline;
+        document.getElementById('task-editor').value = task.editor;
+        document.getElementById('task-status').value = task.status;
+        document.getElementById('task-override').value = task.overrideRate || '';
+        
+        document.getElementById('modal-task-title').innerText = 'Manage Deliverable Data';
+        document.getElementById('manager-task-fields').classList.remove('hidden');
+        openModal('modal-task');
+    }
     
-    async function deleteTask(id) { if(!isAdmin) return; if(confirm("Are you sure you want to permanently delete this deliverable log?")) { appState.deliverables = appState.deliverables.filter(d => d.id !== id); localStorage.setItem(STORAGE_KEY, JSON.stringify(appState)); refreshCurrentView(); buildClientSuggestions(); await db.from('deliverables').delete().eq('id', id); } }
-
-    function handleSaveTask(e) {
-        e.preventDefault(); const id = document.getElementById('task-id').value; const overVal = document.getElementById('task-override').value;
-        const data = { client: document.getElementById('task-client').value.trim(), type: document.getElementById('task-type').value, deadline: document.getElementById('task-deadline').value, editor: isAdmin ? document.getElementById('task-editor').value : currentUser, status: isAdmin ? document.getElementById('task-status').value : 'Not Started', overrideRate: (isAdmin && overVal) ? Number(overVal) : null };
-        if (id) { const idx = appState.deliverables.findIndex(d => d.id === id); if(data.status === 'Completed' && appState.deliverables[idx].status !== 'Completed') { data.completed = getTodayStr(); data.paidAmount = 0; } else if (data.status !== 'Completed') { data.completed = null; data.paidAmount = 0; } appState.deliverables[idx] = { ...appState.deliverables[idx], ...data }; } 
-        else { appState.deliverables.push({ id: Date.now().toString(), created: getTodayStr(), paidAmount: 0, ...data }); }
-        saveState(); closeModal('modal-task'); refreshCurrentView(); buildClientSuggestions();
+    async function deleteTask(id) {
+        if(!isAdmin) return;
+        if(confirm("Are you sure you want to permanently delete this deliverable log?")) {
+            appState.deliverables = appState.deliverables.filter(d => d.id !== id);
+            if (supabaseClient) {
+                await supabaseClient.from('deliverables').delete().eq('id', id);
+            }
+            await saveState();
+            refreshCurrentView();
+            buildClientSuggestions();
+            showToast("Log deleted");
+        }
     }
 
-    function openStatusModal(id, type) { document.getElementById('status-update-id').value = id; document.getElementById('status-task-name').innerText = `Editing: ${type}`; openModal('modal-status'); }
-    function updateEditorStatus(newStatus) {
-        const id = document.getElementById('status-update-id').value; const task = appState.deliverables.find(d => d.id === id);
-        if(task) { task.status = newStatus; if(newStatus === 'Completed') { task.completed = getTodayStr(); task.paidAmount = 0; } else { task.completed = null; task.paidAmount = 0; } saveState(); }
-        closeModal('modal-status'); refreshCurrentView();
+    async function handleSaveTask(e) {
+        e.preventDefault();
+        const id = document.getElementById('task-id').value;
+        const overVal = document.getElementById('task-override').value;
+
+        const data = {
+            client: document.getElementById('task-client').value.trim(),
+            type: document.getElementById('task-type').value,
+            deadline: document.getElementById('task-deadline').value,
+            editor: isAdmin ? document.getElementById('task-editor').value : currentUser,
+            status: isAdmin ? document.getElementById('task-status').value : 'Not Started',
+            overrideRate: (isAdmin && overVal) ? Number(overVal) : null,
+        };
+
+        if (id) {
+            const idx = appState.deliverables.findIndex(d => d.id === id);
+            if(data.status === 'Completed' && appState.deliverables[idx].status !== 'Completed') {
+                data.completed = getTodayStr();
+                data.paidAmount = 0;
+            } else if (data.status !== 'Completed') {
+                data.completed = null;
+                data.paidAmount = 0;
+            }
+            appState.deliverables[idx] = { ...appState.deliverables[idx], ...data };
+        } else {
+            appState.deliverables.push({ id: Date.now().toString(), created: getTodayStr(), paidAmount: 0, ...data });
+        }
+
+        await saveState();
+        closeModal('modal-task');
+        refreshCurrentView();
+        buildClientSuggestions();
+        showToast("Deliverable saved");
     }
 
-    function addEditor() { const input = document.getElementById('new-editor-name'); const val = input.value.trim(); if(val && !appState.editors.includes(val)) { appState.editors.push(val); appState.passwords[val] = ''; input.value = ''; saveState(); buildDropdowns(); renderAdminSettings(); } }
-    function saveRateCard() { Object.keys(appState.rates).forEach(type => { const input = document.getElementById(`rate-${type.replace(/\s+/g, '')}`); if(input) appState.rates[type] = Number(input.value); }); saveState(); refreshCurrentView(); }
-    function toggleDarkMode() { document.documentElement.classList.toggle('dark'); const icon = document.getElementById('theme-icon'); icon.className = document.documentElement.classList.contains('dark') ? 'fa-solid fa-moon' : 'fa-solid fa-sun'; refreshCurrentView(); }
-    function openModal(id) { if(id === 'modal-profile') { document.getElementById('profile-name').value = currentUser; document.getElementById('profile-password').value = ''; } document.getElementById(id).classList.remove('hidden'); }
+    function openStatusModal(id, type) {
+        document.getElementById('status-update-id').value = id;
+        document.getElementById('status-task-name').innerText = `Editing: ${type}`;
+        openModal('modal-status');
+    }
+
+    async function updateEditorStatus(newStatus) {
+        const id = document.getElementById('status-update-id').value;
+        const task = appState.deliverables.find(d => d.id === id);
+        if(task) {
+            task.status = newStatus;
+            if(newStatus === 'Completed') {
+                task.completed = getTodayStr();
+                task.paidAmount = 0;
+            } else {
+                task.completed = null;
+                task.paidAmount = 0;
+            }
+            await saveState();
+        }
+        closeModal('modal-status');
+        refreshCurrentView();
+        showToast("Status updated");
+    }
+
+    async function addEditor() {
+        const input = document.getElementById('new-editor-name');
+        const val = input.value.trim();
+        if(val && !appState.editors.includes(val)) {
+            appState.editors.push(val);
+            appState.passwords[val] = ''; 
+            input.value = '';
+            await saveState();
+            buildDropdowns();
+            renderAdminSettings();
+            showToast("Editor added");
+        }
+    }
+
+    async function saveRateCard() {
+        Object.keys(appState.rates).forEach(type => {
+            const input = document.getElementById(`rate-${type.replace(/\s+/g, '')}`);
+            if(input) appState.rates[type] = Number(input.value);
+        });
+        await saveState();
+        refreshCurrentView();
+        showToast("Rates saved");
+    }
+
+    /* =====================================================================
+       8. UTILITIES
+       ===================================================================== */
+    function toggleDarkMode() {
+        document.documentElement.classList.toggle('dark');
+        const icon = document.getElementById('theme-icon');
+        icon.className = document.documentElement.classList.contains('dark') ? 'fa-solid fa-moon' : 'fa-solid fa-sun';
+        refreshCurrentView(); 
+    }
+
+    function openModal(id) { 
+        if(id === 'modal-profile') {
+            document.getElementById('profile-name').value = currentUser;
+            document.getElementById('profile-password').value = ''; 
+        }
+        document.getElementById(id).classList.remove('hidden'); 
+    }
     function closeModal(id) { document.getElementById(id).classList.add('hidden'); }
-    function destroyChart(key) { if(activeChartInstances[key]) { activeChartInstances[key].destroy(); delete activeChartInstances[key]; } }
-    function kpiCard(label, val, icon, colorClass) { return `<div class="bg-white p-5 rounded-3xl border border-gray-100 shadow-soft flex flex-col justify-between h-32 transition hover:border-gray-300"><div class="flex items-center gap-2 text-[10px] text-gray-500 font-bold uppercase tracking-widest"><i class="fa-solid ${icon} ${colorClass} text-sm"></i> ${label}</div><div class="text-4xl font-black">${val}</div></div>`; }
+
+    function destroyChart(key) {
+        if(activeChartInstances[key]) {
+            activeChartInstances[key].destroy();
+            delete activeChartInstances[key];
+        }
+    }
+
+    function kpiCard(label, val, icon, colorClass) {
+        return `
+            <div class="bg-white dark:bg-dark-card p-5 rounded-3xl border border-gray-100 dark:border-dark-border shadow-soft flex flex-col justify-between h-32 transition hover:border-gray-300 dark:hover:border-gray-600">
+                <div class="flex items-center gap-2 text-[10px] text-gray-500 font-bold uppercase tracking-widest"><i class="fa-solid ${icon} ${colorClass} text-sm"></i> ${label}</div>
+                <div class="text-4xl font-black text-gray-900 dark:text-white">${val}</div>
+            </div>
+        `;
+    }
   </script>
 </body>
 </html>
