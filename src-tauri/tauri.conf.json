@@ -29,5 +29,9 @@
       "icons/icon.icns",
       "icons/icon.ico"
     ]
+  },
+  "package": {
+    "productName": "Production Management TWC",
+    "version": "1.0.2"
   }
 }
