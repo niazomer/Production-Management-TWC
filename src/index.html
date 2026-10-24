@@ -13,6 +13,9 @@
   
   <!-- Chart.js Engine -->
   <script src="https://cdn.jsdelivr.net/npm/chart.js"></script>
+
+  <!-- Supabase Cloud Sync Engine -->
+  <script src="https://cdn.jsdelivr.net/npm/@supabase/supabase-js@2"></script>
   
   <!-- Typography Integration -->
   <link href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600;700;800&display=swap" rel="stylesheet">
@@ -709,8 +712,23 @@
 
   <script>
     /* =====================================================================
-       1. STATE MANAGEMENT, PA/IN RATE CARDS & NON-DESTRUCTIVE MIGRATION
+       1. STATE MANAGEMENT & BULLETPROOF CLOUD SYNC
        ===================================================================== */
+    let supabaseClient = null;
+    
+    // Safely attempt to initialize Supabase without crashing if strictly blocked
+    try {
+        const supabaseUrl = 'https://whzezkgwgfizuufwgypf.supabase.co';
+        const supabaseKey = 'eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJpc3MiOiJzdXBhYmFzZSIsInJlZiI6IndoemV6a2d3Z2ZpenV1ZndneXBmIiwicm9sZSI6ImFub24iLCJpYXQiOjE3OTA1MzYwMjAsImV4cCI6MjEwNjExMjAyMH0.DtV_caVwUQ20UTx4IAcX7_L0SHF1w3yXBvn61-i-vrI';
+        if (window.supabase) {
+            supabaseClient = window.supabase.createClient(supabaseUrl, supabaseKey);
+        } else {
+            console.warn("Cloud Sync Blocked: Ensure your browser is not strictly blocking the Supabase CDN script.");
+        }
+    } catch (e) {
+        console.error("Supabase Database Init Error:", e);
+    }
+
     const STORAGE_KEY = 'twc_app_data_v6';
     const LEGACY_KEYS = ['twc_app_data_v5', 'twc_app_data_v4', 'twc_app_data_v3', 'twc_app_data_v2', 'twc_app_data'];
     const DEFAULT_EDITORS = ['Hashim', 'Haseeb', 'Ashik', 'Adhil', 'Aslam'];
@@ -739,13 +757,11 @@
     const getTextColor = () => document.documentElement.classList.contains('dark') ? '#9ca3af' : '#4b5563';
     const getGridColor = () => document.documentElement.classList.contains('dark') ? '#272732' : '#f3f4f6';
 
-    // Normalize device type to 'PA' (Personal Computer) or 'IN' (Company System)
     function normalizeDeviceCode(code) {
         if (code === 'IN' || code === 'Company') return 'IN';
         return 'PA';
     }
 
-    // Dynamic Rate Calculation Helper: PA (Personal Computer) vs IN (Company System) vs Task Override
     function getTaskRate(task) {
         if (task.overrideRate !== null && task.overrideRate !== undefined && task.overrideRate !== '') {
             return Number(task.overrideRate);
@@ -759,12 +775,12 @@
         return Number(appState.rates[task.type] || 0);
     }
 
-    window.onload = () => {
-        loadState();
+    window.onload = async () => {
+        await loadState();
         populateLoginDropdown();
     };
 
-    function loadState() {
+    async function loadState() {
         let stored = localStorage.getItem(STORAGE_KEY);
         let parsed = stored ? JSON.parse(stored) : null;
 
@@ -824,6 +840,18 @@
             };
         }
 
+        // Fetch Live Deliverables from Cloud Silently (if not blocked)
+        if (supabaseClient) {
+            try {
+                const { data, error } = await supabaseClient.from('deliverables').select('*');
+                if (!error && data) {
+                    appState.deliverables = data;
+                }
+            } catch (err) {
+                console.warn("Cloud connection interrupted, running on local storage.");
+            }
+        }
+
         appState.deliverables.forEach((d, idx) => {
             if (d.client && !appState.clients.includes(d.client)) {
                 appState.clients.push(d.client);
@@ -838,11 +866,28 @@
             }
         });
 
-        saveState();
+        // Save safely to local device without triggering an infinite upload loop
+        localStorage.setItem(STORAGE_KEY, JSON.stringify(appState));
+
+        if (currentUser) {
+            refreshCurrentView();
+            buildClientSuggestions();
+        }
     }
 
-    function saveState() {
+    async function saveState() {
+        // Fallback local save
         localStorage.setItem(STORAGE_KEY, JSON.stringify(appState));
+        
+        // Push the updated deliverables array back to the cloud
+        if (supabaseClient && appState.deliverables && appState.deliverables.length > 0) {
+            try {
+                const { error } = await supabaseClient.from('deliverables').upsert(appState.deliverables);
+                if (error) console.error('Cloud Sync Error:', error);
+            } catch (err) {
+                console.error('Cloud Push Interrupted:', err);
+            }
+        }
     }
 
     function showToast(message) {
@@ -1137,7 +1182,7 @@
             saveState();
         }
     }
-       
+        
     function checkDailyBriefing() {
         const myTasks = appState.deliverables.filter(d => d.editor === currentUser && d.status !== 'Completed');
         const todayStr = getTodayStr();
