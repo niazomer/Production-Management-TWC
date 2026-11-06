@@ -4,7 +4,8 @@
   "version": "1.0.10",
   "type": "module",
   "scripts": {
-    "tauri": "tauri"
+    "tauri": "tauri",
+    "build": "vite build"
   },
   "devDependencies": {
     "@tauri-apps/cli": "^2"
