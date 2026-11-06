@@ -1,0 +1,47 @@
+name: Build Windows App
+
+on:
+  push:
+    branches: [ "main", "master" ]
+  workflow_dispatch:
+
+jobs:
+  build-windows:
+    permissions:
+      contents: write
+    runs-on: windows-latest
+
+    steps:
+      - name: Checkout Repository
+        uses: actions/checkout@v4
+
+      - name: Setup Node.js
+        uses: actions/setup-node@v4
+        with:
+          node-version: 20
+
+      - name: Install Rust Stable
+        uses: dtolnay/rust-toolchain@stable
+
+      - name: Install Dependencies
+        run: npm install
+
+      - name: Build Tauri Windows App
+        uses: tauri-apps/tauri-action@v0
+        env:
+          GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
+        with:
+          tagName: app-v__VERSION__-run-${{ github.run_number }}
+          releaseName: 'Production Management TWC v__VERSION__ (Build #${{ github.run_number }})'
+          releaseBody: 'Automated Windows installer build.'
+          releaseDraft: false
+          prerelease: false
+
+      - name: Upload Windows Installer to Artifacts
+        if: always()
+        uses: actions/upload-artifact@v4
+        with:
+          name: Windows-Installer-EXE
+          path: |
+            src-tauri/target/release/bundle/nsis/*.exe
+            src-tauri/target/release/bundle/msi/*.msi
